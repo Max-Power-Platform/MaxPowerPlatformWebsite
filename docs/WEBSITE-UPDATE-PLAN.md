@@ -1,186 +1,146 @@
-# Website Update Plan v3 — Frontier Digital & AI Transformation
+# Website Update Plan — Marketing Refresh
 ## MaxPowerPlatformWebsite — `www.maxpowerplatform.com`
 
-**Version**: 3.0
+**Version**: 4.0
 **Date**: 2026-08-02
 **Status**: Plan — Awaiting Approval
-**Sources**: Suite repo survey + M365 MSP sales collateral (`C:\repos\MPP\MSP\`)
+**Principle**: Build on the existing voice. The current hero is strong. Add the M365 offering alongside it.
 
 ---
 
-## 1. Strategic Positioning
+## 1. Current Voice (Keep This)
 
-Max Power Platform is a **frontier digital and AI transformation company** serving nonprofits. Two independent revenue streams — each can be sold standalone:
+```
+Frontier-first · AI-first
 
-| Offering | Who Buys It | Value |
-|---|---|---|
-| **M365 Managed Services** | Any nonprofit that needs IT. Small business, startup, or org with no IT staff. | One vendor, one bill, one identity. Professional email, security, AI, compliance, device management. We manage it so you don't need an IT hire. |
-| **Max Power Suite** | Housing nonprofits running programs (HBE, DPA, construction, property mgmt, AP, fundraising). | 14 connected Power Platform modules on a shared Dataverse tenant. AI agents, React SPAs, Stripe, QuickBooks — purpose-built for affordable housing. |
+Affordable Housing Nonprofit Suite
 
-**A client can buy either one. Or both.** M365 MSP builds revenue on its own. The Suite is where housing nonprofits go for program operations.
+A frontier-first, AI-first platform for nonprofit housing agencies — 15 connected
+modules built on Microsoft Power Platform that deliver homebuyer education, down
+payment assistance, home repair, construction and property management, and the
+fundraising, grants, volunteer, and back-office work that surrounds them.
+
+Dataverse + model-driven apps + Power Pages + Copilot Studio agents wired through
+the native Dataverse MCP server — one platform, one constituent record, one set of
+reports, with frontier AI models acting on the same data the staff see.
+```
+
+This is the template: badge → H1 → what-it-is paragraph → tech-credibility paragraph.
 
 ---
 
-## 2. Hero Rewrite
+## 2. What Changes
 
-| Current | v3 |
+### Hero becomes two sections — M365 first, then Suite
+
+The existing Suite hero stays. A new M365 hero is added above it, following the same structural pattern.
+
+```
+SECTION: Managed Microsoft 365
+─────────────────────────────
+[badge] Frontier-first · Secure-first
+[H1]    Managed Microsoft 365 for Nonprofits
+[P1]    Professional email, files, phones, security, and device management on one
+        platform — managed for you so you don't need an IT hire. Replaces Zoom,
+        Dropbox, antivirus, and phone systems with one vendor and one bill. New
+        starter up in minutes. Leaver off in one click.
+[P2]    Business Premium + conditional access + Defender for Endpoint + Purview
+        data loss prevention + Copilot Chat — enterprise-grade security and AI that
+        used to be reserved for companies with a thousand seats, managed and
+        monitored by a team that knows your nonprofit.
+```
+
+### Suite hero stays — tiles enriched
+
+The existing Suite hero is preserved as-is but the tiles below get updated copy per the table below.
+
+---
+
+## 3. Home Page Structure (Final)
+
+```
+SECTION: Managed Microsoft 365 [NEW]
+  Badge + H1 + 2 paragraphs (frontier/secure positioning)
+  5 tiles:
+    🔐 Enterprise Security & Compliance
+    🏢 One Platform, One Bill
+    🤖 AI Built In
+    📋 Startup IT Foundation
+    🛡️ Protecting Personal Data
+
+SECTION: Affordable Housing Nonprofit Suite [EXISTING — enriched]
+  Badge + H1 + 2 paragraphs (frontier/AI positioning — unchanged!)
+  Sub: Housing programs (4 tiles — HRRP removed)
+    🏠 Homebuyer Education       (enriched)
+    💰 Down Payment Assistance   (enriched)
+    🏟  Construction Management   (enriched)
+    🏛  Property Management       (enriched)
+  Sub: Back-office operations (3 tiles)
+    🥶  Accounts Payable          (enriched)
+    📦 Procurement               (enriched)
+    📍 Property Analyzer          (enriched)
+  Sub: Fundraising and engagement (4 tiles)
+    💝 Fundraising               (enriched)
+    📝 Grants                    (enriched)
+    🤝 Volunteers                (enriched)
+    📧 Bulk Email                (enriched)
+  Sub: On the roadmap (3 tiles)
+    📊 Project Management        (renamed from Plan Manager)
+    👥 Human Resources           (minor polish)
+    🎓 Learning Management       (minor polish)
+
+CONTACT (unchanged)
+```
+
+---
+
+## 4. M365 Tile Copy
+
+| Tile | Copy |
 |---|---|
-| Tagline: "Frontier-first · AI-first" | "Digital and AI transformation for nonprofits" |
-| H1: "Affordable Housing Nonprofit Suite" | "A frontier company that runs your IT and your programs" |
-| Subtitle describes 15 modules only | "Start with managed Microsoft 365. Layer on the program suite when you're ready. One partner, one platform, one mission." |
-| One CTA | Two CTAs: "Managed M365" ↓ | "Housing Program Suite" ↓ |
+| 🔐 **Enterprise Security & Compliance** | "Multi-factor authentication on every account. Conditional access that blocks sign-ins from risky countries and unmanaged devices. Defender for Endpoint on every laptop. Purview sensitivity labels. Data loss prevention that catches Social Security numbers, card numbers, and bank details before they leave your tenant. Cyber insurance ready from day one." |
+| 🏢 **One Platform, One Bill** | "Professional email on your own domain. Teams for chat, video, and your business phone. 1 TB of cloud storage per person. One vendor replacing Zoom, Dropbox, antivirus, phone systems, and file shares. New person starts — one action, they have everything. Someone leaves — one click, they have nothing. One bill. One place to manage it all." |
+| 🤖 **AI Built In** | "Microsoft 365 Copilot Chat — frontier AI inside your work account. Ask anything. Upload a contract and interrogate it. Word, Excel, and PowerPoint agents that build documents from a description. Enterprise data protection — your prompts and data are never used to train models. Included at no extra cost." |
+| 📋 **Startup IT Foundation** | "Domain registered to the company. A tenant built properly from day one. One identity per person across email, files, apps, and devices. MFA, conditional access, password manager, single sign-on. SPF, DKIM, and DMARC so your invoices don't land in spam. Costs less than a fraction of one IT hire." |
+| 🛡️ **Protecting Personal Data** | "Social Security numbers, card numbers, bank details, passport and driver's licence scans — automatically detected in email, files, and chat. Warned on, encrypted, or blocked before they leave your tenant. Know where your data is before you're asked — every state has breach notification law." |
 
 ---
 
-## 3. Home Page Structure
-
-```
-www.maxpowerplatform.com
-│
-├── HERO
-│   "A frontier company that runs your IT and your programs"
-│   "Digital and AI transformation for nonprofits"
-│   "Start with managed M365. Layer on the program suite when you're ready."
-│   [Managed M365 ↓]  [Program Suite ↓]
-│
-├── SECTION 1: Managed Microsoft 365
-│   "The IT department your nonprofit deserves"
-│   "Professional email, security, AI, and device management — one vendor, one bill,
-    one place to turn everything off when someone leaves."
-│
-│   ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────────┐
-│   │ 🔐 Security &        │  │ 🏢 One Platform,     │  │ 🤖 AI Built In           │
-│   │ Compliance           │  │ One Bill             │  │                          │
-│   │                     │  │                     │  │                          │
-│   │ MFA, conditional     │  │ Replace Zoom,        │  │ Copilot Chat — frontier  │
-│   │ access, Defender EDR,│  │ Dropbox, antivirus,  │  │ AI in your work account. │
-│   │ Purview labels, data │  │ phone system, file   │  │ Word/Excel/PPT agents.   │
-│   │ loss prevention.     │  │ shares — one vendor, │  │ Enterprise data          │
-│   │ Cyber insurance ready│  │ one bill. New starter│  │ protection — your data   │
-│   │ from day one.        │  │ in minutes. Leaver   │  │ is never used to train.  │
-│   │                     │  │ off in one click.    │  │ All included at no extra │
-│   │                     │  │                     │  │ cost.                    │
-│   └─────────────────────┘  └─────────────────────┘  └─────────────────────────┘
-│
-│   ┌─────────────────────────┐  ┌─────────────────────────┐
-│   │ 📋 Startup IT            │  │ 🛡️ Protecting Personal    │
-│   │ Foundation               │  │ Data                     │
-│   │                          │  │                          │
-│   │ Domain, tenant, identity,│  │ Social Security numbers,  │
-│   │ MFA, conditional access, │  │ card numbers, bank details│
-│   │ password manager, SSO,   │  │ passport scans — found,   │
-│   │ SPF/DKIM/DMARC. Built    │  │ labeled, and blocked      │
-│   │ deliberately from day one│  │ before they leave your    │
-│   │ — costs less than a      │  │ tenant. Built into        │
-│   │ fraction of one IT hire. │  │ Business Premium.         │
-│   └─────────────────────────┘  └─────────────────────────┘
-│
-├── SECTION 2: Housing Program Suite
-│   "Purpose-built for affordable housing"
-│   "14 connected modules on one Dataverse tenant — with AI agents that act on
-│    the same data your staff sees."
-│
-│   SUB: Housing Programs (4 tiles)
-│   ├── Homebuyer Education
-│   ├── Down Payment Assistance
-│   ├── Construction Management
-│   └── Property Management
-│
-│   SUB: Back-Office Operations (3 tiles)
-│   ├── Accounts Payable
-│   ├── Procurement
-│   └── Property Analyzer
-│
-│   SUB: Fundraising & Engagement (4 tiles)
-│   ├── Fundraising & Engagement
-│   ├── Grant Management
-│   ├── Volunteer Management
-│   └── Bulk Email & Newsletter
-│
-│   SUB: On the Roadmap (3 tiles)
-│   ├── Project Management
-│   ├── Human Resources
-│   └── Learning Management
-│
-├── SECTION 3: Why Max Power Platform
-│   "One partner. One platform. One mission."
-│
-│   ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────────┐
-│   │ 🎯 Frontier-First    │  │ 🔗 Connected by      │  │ 🧠 AI That Does the Work │
-│   │                     │  │ Design               │  │                          │
-│   │ We build on the      │  │ M365 and the Suite    │  │ Copilot agents that read │
-│   │ Microsoft stack your │  │ share one identity.   │  │ your invoices, match     │
-│   │ team already knows — │  │ One contact record.   │  │ grants to programs, and  │
-│   │ Power Platform,      │  │ One audit trail. No   │  │ run your proformas — on  │
-│   │ Dataverse, Copilot   │  │ integrations to bolt  │  │ the same data your staff │
-│   │ Studio, Azure.       │  │ together.             │  │ works with every day.    │
-│   └─────────────────────┘  └─────────────────────┘  └─────────────────────────┘
-│
-└── Contact / CTA
-    "Tell us about your nonprofit. A real person responds — usually same day."
-```
-
----
-
-## 4. M365 Section — Tile Copy (from MSP Sales Collateral)
-
-### Tile 1: Security & Compliance
-**Icon**: 🔐
-**Copy**: "Multi-factor authentication. Conditional access that blocks sign-ins from risky countries. Defender for Business on every laptop. Purview sensitivity labels. Data loss prevention that catches Social Security numbers before they leave. The security layer your insurer and your bigger clients expect — built in, not bolted on."
-
-### Tile 2: One Platform, One Bill
-**Icon**: 🏢
-**Copy**: "Professional email on your domain. Teams for chat, video, and your actual business phone. 1 TB of cloud storage per person. One vendor replacing Zoom, Dropbox, antivirus, phones, and file shares. New person starts — one action, they have everything. Someone leaves — one click, they have nothing. One bill. One place to manage it all."
-
-### Tile 3: AI Built In
-**Icon**: 🤖
-**Copy**: "Microsoft 365 Copilot Chat — frontier AI inside your work account, not a consumer tab. Ask anything. Upload a contract and interrogate it. Word, Excel, and PowerPoint agents that build documents from a description. Enterprise data protection — your prompts and data are never used to train models. All included at no extra cost with Business Premium."
-
-### Tile 4: Startup IT Foundation
-**Icon**: 📋
-**Copy**: "Domain registered to the company. A Microsoft 365 tenant built properly. One identity per person. MFA on every account. A password manager. Single sign-on. SPF, DKIM, and DMARC so your invoices don't land in spam. Built deliberately from day one — costs less than a fraction of one IT hire."
-
-### Tile 5: Protecting Personal Data
-**Icon**: 🛡️
-**Copy**: "Business Premium already contains the tools to find, label, and block personal information. Social Security numbers, card numbers, bank details, passport scans — automatically detected in email, files, and chat. Warned on, encrypted, or blocked before they leave your tenant. The first thing you'll be asked after a breach."
-
----
-
-## 5. Suite Tile Copy (Enriched)
+## 5. Suite Tile Copy (Enriched — Same Voice)
 
 ### Housing Programs
 
-| Module | Copy |
+| Tile | Copy |
 |---|---|
-| **Homebuyer Education** | "HUD-style classes, 1:1 counseling, and certificate issuance. HUD-9902 compliant reporting. Electronic signatures. One console your counselors, educators, and directors all use." |
-| **Down Payment Assistance** | "SHIP, HOME, and HTF-funded purchase assistance across Tampa, Clearwater, Largo, St. Petersburg, Hillsborough, and Pinellas. Real-time financial calculations. HUD reporting built in." |
-| **Construction Management** | "Proformas, deals, development tracking, draws, and payment approvals. Three purpose-built consoles. AI agent alongside your project managers. SharePoint document control." |
-| **Property Management** | "Portfolio, units, tenants, leases, and rent rolls in one console. Vacancy metrics. Florida lease notices. Tenant self-service portal. Work order management." |
+| 🏠 **Homebuyer Education** | "HUD-style classes, 1:1 counseling, education lock-in, and certificate issuance. HUD-9902 compliant reporting built in. Electronic signatures. One console your counselors, educators, and directors all use — the front door to every assistance program." |
+| 💰 **Down Payment Assistance** | "SHIP, HOME, and HTF-funded purchase assistance — applications, underwriting, awards, closings, liens, and HUD reporting. Works across Tampa, Clearwater, Largo, St. Petersburg, Hillsborough, and Pinellas. Real-time financial calculations." |
+| 🏟  **Construction Management** | "Construction project management — proformas, deals, development tracking, draws, time tracking, payment approvals, and document control. Three purpose-built consoles. AI agent alongside your project managers. SharePoint document control." |
+| 🏛  **Property Management** | "Real-estate portfolio, units, tenants, leases, and rent rolls in one console. Vacancy and turn-time metrics. Florida-specific lease notices. Tenant self-service portal. Work order management." |
 
 ### Back-Office
 
-| Module | Copy |
+| Tile | Copy |
 |---|---|
-| **Accounts Payable** | "AI reads your invoices — PDFs, images, emails — and extracts the data. QuickBooks Online syncs live. Approval workflows in Teams. One dashboard for your AP team." |
-| **Procurement** | "Sealed bidding, vendor compliance, contract buyout, and purchase order matching. Real-time analytics console. Funding-source tracking for audit-ready procurement." |
-| **Property Analyzer** | "Florida address → instant jurisdiction, zoning, flood, permits, and utilities across Hillsborough, Pinellas, and Pasco. Public-records CMA and ARV forecast. One printable report." |
+| 🥶  **Accounts Payable** | "AI reads your invoices — PDFs, images, and emails — and extracts the data automatically. QuickBooks Online syncs live. Approval workflows in Teams. One dashboard for everything your AP team touches — built on the shared mpp_bill family." |
+| 📦 **Procurement** | "Sealed bidding, vendor compliance, contract buyout, and purchase order matching — the full procure-to-pay lifecycle. Funding-source tracking for audit-ready procurement. Real-time analytics console." |
+| 📍 **Property Analyzer** | "Florida address → instant jurisdiction, zoning, flood, permits, and utilities across Hillsborough, Pinellas, and Pasco counties. Public-records CMA and ARV forecast. One printable report for your land committee." |
 
 ### Engagement
 
-| Module | Copy |
+| Tile | Copy |
 |---|---|
-| **Fundraising & Engagement** | "Stripe-powered donations. Real-time silent auctions with proxy bidding. Donor portal. General ledger export to QuickBooks, Intacct, or MIP." |
-| **Grant Management** | "Track opportunities, applications, awards, and commitments. Automated deadline alerts. AI grant agent matches opportunities to your programs." |
-| **Volunteer Management** | "Recruit, schedule, track hours, and recognize volunteers — tied to the same contact and program records. Recognition and retention dashboards." |
-| **Bulk Email & Newsletter** | "Send thousands of emails with quota management. One-click unsubscribe. Email validation. Automated journeys — welcome series, renewal reminders, event follow-ups." |
+| 💝 **Fundraising & Engagement** | "Donors, gifts, pledges, recurring giving, events, silent auctions, planned giving, GL export. Stripe-powered donation processing. Real-time auction with proxy bidding. Donor portal for self-service history." |
+| 📝 **Grants** | "Track grant opportunities, applications, awards, and budget commitments. Automated deadline alerts at 90, 60, 30, 14, and 7 days. AI grant agent to match opportunities to your programs." |
+| 🤝 **Volunteers** | "Recruit, schedule, track hours, and recognize volunteers — tied to the same Dataverse contact and program records. Recognition and retention dashboards." |
+| 📧 **Bulk Email & Newsletter** | "Newsletters and segmented bulk email through Azure Communication Services. Built-in quota management. One-click unsubscribe. Email validation. Automated journeys — welcome series, renewal reminders, event follow-ups." |
 
 ### Roadmap
 
-| Module | Copy |
+| Tile | Copy |
 |---|---|
-| **Project Management** | "Full Microsoft Project parity — WBS, dependencies, cascade scheduling, critical path. Native Dataverse. Live in production." |
-| **Human Resources** | "Staff onboarding, time-off, performance reviews, and HR document control — on the same platform your programs run on." |
-| **Learning Management** | "Training catalog, course completions, certifications, and CEU tracking — tracked and auditable." |
+| 📊 **Project Management** *(was Plan Manager)* | "Full Microsoft Project parity — WBS, dependencies, cascade scheduling, working calendars, baselines, and critical path. Built natively on Dataverse, independent of Microsoft Project for the Web." |
+| 👥 **Human Resources** | "Staff onboarding, time-off tracking, performance reviews, and HR document control — all connected to the same platform your programs run on." |
+| 🎓 **Learning Management** | "Training catalog, course completions, certifications, and CEU tracking. Your staff and partner agencies stay current — tracked and auditable." |
 
 ---
 
@@ -188,14 +148,16 @@ www.maxpowerplatform.com
 
 | Item | Reason |
 |---|---|
-| **HRRP tile + page + nav** | Not marketed |
-| **"Coming soon" badges** | Marketing catalog — no status badges |
-| **Gray Roadmap tile borders** | Treat same as other tiles |
-| **Old hero tagline** | Replaced with frontier positioning |
+| HRRP tile from Housing section | Not marketed |
+| HRRP from Programs nav dropdown | Removed |
+| HRRP drill-through page (`/hrrp/`) | Archived |
+| "Coming soon" badges on Roadmap tiles | Not needed |
+| Gray borders on Roadmap tiles | Treat same as others |
+| "Plan Manager" → renamed "Project Management" | Matches the real module name |
 
 ---
 
-## 7. Navigation Structure
+## 7. Navigation
 
 ```
 [Logo]  Managed M365  Programs ▾  Operations ▾  Engagement ▾  Roadmap ▾  [🔍] [👤]
@@ -211,45 +173,33 @@ Programs ▾                    Operations ▾              Engagement ▾      
 
 ---
 
-## 8. Implementation
+## 8. Implementation Phases
 
-### Phase 1: Home Page Rewrite
+### Phase 1: Home Page HTML (P0)
 | # | Task |
 |---|---|
-| 1.1 | Rewrite hero: new H1, subtitle, tagline, two CTAs |
-| 1.2 | Add M365 section (5 tiles — Security, Platform, AI, Startup IT, Data Protection) |
-| 1.3 | Remove HRRP tile from Housing Programs |
-| 1.4 | Enrich all 14 Suite tiles with updated copy |
-| 1.5 | Rename "Plan Manager" → "Project Management" |
-| 1.6 | Add "Why Max Power Platform" section (3-column: Frontier-First, Connected, AI) |
-| 1.7 | Remove "coming soon" badges, gray borders |
+| 1.1 | Add M365 hero section + 5 tiles above the existing Suite hero |
+| 1.2 | Remove HRRP tile from Housing Programs section |
+| 1.3 | Enrich 4 Housing Program tile descriptions |
+| 1.4 | Enrich 3 Back-Office tile descriptions |
+| 1.5 | Enrich 4 Engagement tile descriptions |
+| 1.6 | Rename "Plan Manager" → "Project Management" + new copy |
+| 1.7 | Polish HR and LMS copy |
+| 1.8 | Remove "coming soon" badges + gray borders from Roadmap |
 
-### Phase 2: Navigation + Pages
+### Phase 2: Navigation + Pages (P1)
 | # | Task |
 |---|---|
-| 2.1 | Add "Managed M365" nav item (top-level) |
+| 2.1 | Add "Managed M365" top-level nav link |
 | 2.2 | Remove HRRP from Programs dropdown |
-| 2.3 | Rename "Plan Manager" → "Project Management" in Roadmap |
-| 2.4 | Create `/m365/` module page with full M365 feature detail |
-| 2.5 | Archive `/hrrp/` page |
+| 2.3 | Rename "Plan Manager" → "Project Management" in Roadmap dropdown |
+| 2.4 | Create `/m365/` web page |
+| 2.5 | Archive `/hrrp/` web page |
 
-### Phase 3: Module Page Enrichment
+### Phase 3: Module Page Enrichment (P2)
 | # | Task |
 |---|---|
 | 3.1 | Enrich `/hbe/`, `/dpa/`, `/cms/`, `/property-management/` |
 | 3.2 | Enrich `/accounts-payable/`, `/procurement/`, `/find-jurisdiction/` |
 | 3.3 | Enrich `/fundraising/`, `/grants/`, `/volunteers/`, `/bulk-email/` |
-| 3.4 | Enrich `/plan-manager/` → rename to Project Management |
-
----
-
-## 9. Tile Count Summary
-
-| Section | Tiles | Status |
-|---|---|---|
-| M365 Managed Services | 5 | NEW |
-| Housing Programs | 4 | HRRP removed |
-| Back-Office | 3 | Unchanged |
-| Fundraising & Engagement | 4 | Unchanged |
-| Roadmap | 3 | Renamed, enriched |
-| **Total** | **19** | +1 vs current (18), minus HRRP (+5 M365, -1 HRRP = +4 net) |
+| 3.4 | Update `/plan-manager/` → `/project-management/` |
