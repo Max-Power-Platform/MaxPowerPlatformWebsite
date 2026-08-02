@@ -4,6 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  },
   build: {
     target: 'es2015',
     cssCodeSplit: false,
@@ -15,6 +18,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
+        banner: 'var process={env:{NODE_ENV:"production"}};window.process=process;',
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'style.css') return 'mpp-os.css'
           return assetInfo.name || '[name][extname]'

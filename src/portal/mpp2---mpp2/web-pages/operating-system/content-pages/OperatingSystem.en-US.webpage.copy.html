@@ -2,14 +2,22 @@
   <div class="col-lg-12 columnBlockLayout" style="word-break:break-word;">
     <link rel="stylesheet" href="/mpp-os.css" />
     <div id="mpp-os-root"></div>
-    <script src="/mpp-os.js"></script>
     <script>
       (function(){
-        if (window.MPPOperatingSystem) {
-          window.MPPOperatingSystem.render('mpp-os-root');
-        } else {
-          document.getElementById('mpp-os-root').innerHTML = '<p style="padding:24px;">Loading operating system diagram...</p>';
-        }
+        var el = document.getElementById('mpp-os-root');
+        if (!el) return;
+        el.innerHTML = '<p style="padding:24px;">Loading operating system diagram...</p>';
+        var s = document.createElement('script');
+        s.src = '/mpp-os.js';
+        s.onload = function(){
+          if (window.MPPOperatingSystem) {
+            window.MPPOperatingSystem.render('mpp-os-root');
+          }
+        };
+        s.onerror = function(){
+          el.innerHTML = '<p style="padding:24px;">Operating system diagram could not be loaded. Please refresh the page.</p>';
+        };
+        document.head.appendChild(s);
       })();
     </script>
   </div>
