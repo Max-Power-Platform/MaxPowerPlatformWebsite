@@ -377,7 +377,7 @@ foreach ($m in $modules) {
 <div class="row sectionBlockLayout text-center" style="display:flex;flex-wrap:wrap;margin:0;padding:56px 8px 24px;background:#ffffff;">
   <div class="container" style="padding:0;">
     <div class="col-lg-12 columnBlockLayout" style="word-break:break-word;">
-      <p style="margin:0 0 8px;"><a href="/" style="color:#1F66B5;text-decoration:none;">&larr; Affordable Housing Nonprofit Suite</a></p>
+      <p style="margin:0 0 8px;"><a href="/" style="color:#1F66B5;text-decoration:none;">&larr; Max Power Platform</a></p>
       <div style="font-size:3.25rem;line-height:1;margin:8px 0;">$($m.icon)</div>
       <h1 style="margin:0 0 10px;color:#1F66B5;">$($m.title)</h1>
       <p style="font-size:1.18rem;max-width:800px;margin:0 auto;color:#555;">$($m.tagline)</p>
@@ -414,46 +414,40 @@ Write-Host "Step 2 done: rewrote content-page HTML for all $($modules.Count) mod
 # --- Step 3: rewrite Home page (M365 hero + suite hero + tile grid + contact CTA) ---
 $homeSb = New-Object System.Text.StringBuilder
 
-# M365 hero section (new, above suite hero)
+# M365 + Suite hero cards (side-by-side, above the fold)
 [void]$homeSb.AppendLine(@"
-<div class="row sectionBlockLayout text-center" style="display:flex;flex-wrap:wrap;margin:0;padding:64px 8px 24px;background:#ffffff;">
+<div class="row sectionBlockLayout" style="display:flex;flex-wrap:wrap;margin:0;padding:56px 8px 36px;background:#ffffff;">
   <div class="container" style="padding:0;">
     <div class="col-lg-12 columnBlockLayout" style="word-break:break-word;">
-      <p style="margin:0 0 10px;"><span style="display:inline-block;background:#e8f1fb;color:#1F66B5;font-weight:600;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;padding:6px 14px;border-radius:99px;">$($m365Service.badge)</span></p>
-      <h1 style="margin:0 0 12px;color:#1F66B5;font-weight:700;">$($m365Service.title)</h1>
-      <p style="font-size:1.2rem;max-width:880px;margin:0 auto 8px;color:#444;">$($m365Service.p1)</p>
-      <p style="font-size:1rem;max-width:780px;margin:8px auto 0;color:#666;">$($m365Service.p2)</p>
-    </div>
-  </div>
-</div>
-"@)
+      <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:stretch;">
 
-[void]$homeSb.AppendLine(@"
-<div id="m365" class="row sectionBlockLayout text-start" style="display:flex;flex-wrap:wrap;margin:0;padding:48px 8px 24px;background:#f7f8fa;">
-  <div class="container" style="padding:0;">
-    <div class="col-lg-12 columnBlockLayout" style="word-break:break-word;">
-      <div class="row" style="display:flex;flex-wrap:wrap;gap:18px;justify-content:center;">
-"@)
-foreach ($t in $m365Tiles) {
-  [void]$homeSb.AppendLine((Tile-Html $t -m365))
-}
-[void]$homeSb.AppendLine(@"
+        <!-- Managed M365 hero card -->
+        <div style="flex:1 1 420px;max-width:560px;background:#f7f8fa;border:1px solid #e3e3e3;border-radius:10px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <p style="margin:0 0 10px;"><span style="display:inline-block;background:#e8f1fb;color:#1F66B5;font-weight:600;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;padding:5px 12px;border-radius:99px;">$($m365Service.badge)</span></p>
+            <h1 style="margin:0 0 12px;color:#1F66B5;font-weight:700;font-size:1.6rem;">$($m365Service.title)</h1>
+            <p style="font-size:1.05rem;margin:0 0 10px;color:#444;">$($m365Service.p1)</p>
+            <p style="font-size:.98rem;margin:0;color:#666;">$($m365Service.p2)</p>
+          </div>
+          <div style="margin-top:20px;">
+            <a href="/$($m365Service.slug)/" style="display:inline-block;background:#1F66B5;color:#fff;padding:10px 22px;border-radius:6px;text-decoration:none;font-weight:600;">See Managed M365 &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Max Power Suite hero card -->
+        <div style="flex:1 1 420px;max-width:560px;background:#f7f8fa;border:1px solid #e3e3e3;border-radius:10px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <p style="margin:0 0 10px;"><span style="display:inline-block;background:#e8f1fb;color:#1F66B5;font-weight:600;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;padding:5px 12px;border-radius:99px;">Frontier-first &middot; AI-first</span></p>
+            <h1 style="margin:0 0 12px;color:#1F66B5;font-weight:700;font-size:1.6rem;">Max Power Suite</h1>
+            <p style="font-size:1.05rem;margin:0 0 10px;color:#444;">A connected platform for nonprofit housing agencies: homebuyer education, down payment assistance, construction, property management, fundraising, grants, volunteers, and back-office operations.</p>
+            <p style="font-size:.98rem;margin:0;color:#666;">Dataverse + model-driven apps + Power Pages + Copilot Studio agents through the native Dataverse MCP server.</p>
+          </div>
+          <div style="margin-top:20px;">
+            <a href="#programs" style="display:inline-block;background:#1F66B5;color:#fff;padding:10px 22px;border-radius:6px;text-decoration:none;font-weight:600;">Explore the suite &darr;</a>
+          </div>
+        </div>
+
       </div>
-    </div>
-  </div>
-</div>
-"@)
-
-# Suite hero (existing, enriched)
-[void]$homeSb.AppendLine(@"
-<div class="row sectionBlockLayout text-center" style="display:flex;flex-wrap:wrap;margin:0;padding:64px 8px 24px;background:#ffffff;">
-  <div class="container" style="padding:0;">
-    <div class="col-lg-12 columnBlockLayout" style="word-break:break-word;">
-      <img src="/mpp-logo.png" alt="Max Power Platform" style="max-width:480px;width:80%;height:auto;margin:0 auto 28px;display:block;" />
-      <p style="margin:0 0 10px;"><span style="display:inline-block;background:#e8f1fb;color:#1F66B5;font-weight:600;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;padding:6px 14px;border-radius:99px;">Frontier-first &middot; AI-first</span></p>
-      <h1 style="margin:0 0 12px;color:#1F66B5;font-weight:700;">Affordable Housing Nonprofit Suite</h1>
-      <p style="font-size:1.2rem;max-width:880px;margin:0 auto 8px;color:#444;">A frontier-first, AI-first platform for nonprofit housing agencies &mdash; connected modules built on Microsoft Power Platform that deliver homebuyer education, down payment assistance, construction and property management, and the fundraising, grants, volunteer, and back-office work that surrounds them.</p>
-      <p style="font-size:1rem;max-width:780px;margin:8px auto 0;color:#666;">Dataverse + model-driven apps + Power Pages + <strong>Copilot Studio agents wired through the native Dataverse MCP server</strong> &mdash; one platform, one constituent record, one set of reports, with frontier AI models acting on the same data the staff see.</p>
     </div>
   </div>
 </div>
