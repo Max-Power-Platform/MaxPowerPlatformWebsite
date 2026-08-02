@@ -1,6 +1,6 @@
 #requires -Version 7
 $ErrorActionPreference = 'Stop'
-Set-Location 'C:\Users\MaxMaraj\OneDrive - Max Power Platform\Repos\mpp\nonprofit-suite-website'
+Set-Location (Split-Path -Parent $PSScriptRoot)
 
 $tok = (az account get-access-token --resource https://mpp1.crm.dynamics.com/ --query accessToken -o tsv)
 $h   = @{ Authorization = "Bearer $tok"; Accept = 'application/json' }
