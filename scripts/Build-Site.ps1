@@ -25,6 +25,12 @@ $weblinkSetId   = '9b44a949-a98d-4969-afd9-8569b33f7829'
 $homeWebLinkId  = '120e8f8c-3b45-4197-bdfd-36118d26332f'
 $m365WebLinkId  = 'aa000005-0000-4000-8000-000000000005'
 
+# --- Helper: write text as UTF-8 (no BOM), no trailing newline corruption ---
+function Write-Utf8NoBom([string]$path, [string]$text) {
+  $full = [System.IO.Path]::GetFullPath($path)
+  [System.IO.File]::WriteAllText($full, $text, (New-Object System.Text.UTF8Encoding $false))
+}
+
 # --- Web-file helper: copy latest bundle and create YAML record if missing ---
 function Update-WebFile([string]$name, [string]$mimeType, [string]$sourcePath) {
   $destFolder = 'src/portal/mpp2---mpp2/web-files'
@@ -233,12 +239,6 @@ $categoryMeta = @(
   @{ key='engagement';   title='Fundraising and engagement';  blurb='Donors, grants, volunteers, and the outreach that funds the work.' }
   @{ key='coming-soon';  title='On the roadmap';              blurb='Reserved repos ready to build when shared foundations land.' }
 )
-
-# --- Helper: write text as UTF-8 (no BOM), no trailing newline corruption ---
-function Write-Utf8NoBom([string]$path, [string]$text) {
-  $full = [System.IO.Path]::GetFullPath($path)
-  [System.IO.File]::WriteAllText($full, $text, (New-Object System.Text.UTF8Encoding $false))
-}
 
 # --- Operating System page metadata ---
 $osPage = @{
