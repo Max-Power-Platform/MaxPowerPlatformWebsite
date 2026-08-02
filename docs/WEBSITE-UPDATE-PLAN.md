@@ -14,7 +14,7 @@ Max Power Platform is a **frontier digital and AI transformation company** servi
 
 | Offering | Who Buys It | Value |
 |---|---|---|
-| **M365 Managed Services** | Any nonprofit that needs IT. Small business, startup, or org with no IT staff. | One vendor, one bill, one identity. Professional email, security, AI, compliance, device management — $22/seat. We manage it so you don't need an IT hire. |
+| **M365 Managed Services** | Any nonprofit that needs IT. Small business, startup, or org with no IT staff. | One vendor, one bill, one identity. Professional email, security, AI, compliance, device management. We manage it so you don't need an IT hire. |
 | **Max Power Suite** | Housing nonprofits running programs (HBE, DPA, construction, property mgmt, AP, fundraising). | 14 connected Power Platform modules on a shared Dataverse tenant. AI agents, React SPAs, Stripe, QuickBooks — purpose-built for affordable housing. |
 
 **A client can buy either one. Or both.** M365 MSP builds revenue on its own. The Suite is where housing nonprofits go for program operations.
@@ -46,7 +46,7 @@ www.maxpowerplatform.com
 ├── SECTION 1: Managed Microsoft 365
 │   "The IT department your nonprofit deserves"
 │   "Professional email, security, AI, and device management — one vendor, one bill,
-│    one place to turn everything off when someone leaves. $22 a person."
+    one place to turn everything off when someone leaves."
 │
 │   ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────────┐
 │   │ 🔐 Security &        │  │ 🏢 One Platform,     │  │ 🤖 AI Built In           │
