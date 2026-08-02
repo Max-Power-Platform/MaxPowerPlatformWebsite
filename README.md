@@ -7,7 +7,7 @@ Public marketing / module-info website for **Max Power Platform**, hosted on Pow
 | **Domain** | `www.maxpowerplatform.com` |
 | **Power Pages URL** | `https://mpp2.powerappsportals.com/` |
 | **Tenant** | `mpp` (Max Power Platform) |
-| **GitHub** | `Max-Power-Platform/MaxPowerPlatformWebsite` |
+| **GitHub** | https://github.com/Max-Power-Platform/MaxPowerPlatformWebsite |
 
 ## What lives here
 
