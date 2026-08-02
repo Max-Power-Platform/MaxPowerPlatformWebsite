@@ -24,6 +24,17 @@
   adx_displayimageonly: false
   adx_displayorder: 3
   adx_displaypagechildlinks: false
+  adx_name: How it works
+  adx_openinnewwindow: false
+  adx_pageid: 9f12792c-af6d-4f04-8a79-4ad62935c6b1
+  adx_publishingstateid: eb607d5d-29cd-4e84-b47d-3bf053b90cb2
+  adx_robotsfollowlink: true
+  adx_weblinkid: aa000006-0000-4000-8000-000000000006
+  adx_weblinksetid: 9b44a949-a98d-4969-afd9-8569b33f7829
+- adx_disablepagevalidation: false
+  adx_displayimageonly: false
+  adx_displayorder: 4
+  adx_displaypagechildlinks: false
   adx_name: Programs
   adx_openinnewwindow: false
   adx_publishingstateid: eb607d5d-29cd-4e84-b47d-3bf053b90cb2
@@ -33,7 +44,7 @@
   adx_weblinksetid: 9b44a949-a98d-4969-afd9-8569b33f7829
 - adx_disablepagevalidation: false
   adx_displayimageonly: false
-  adx_displayorder: 4
+  adx_displayorder: 5
   adx_displaypagechildlinks: false
   adx_name: Operations
   adx_openinnewwindow: false
@@ -44,7 +55,7 @@
   adx_weblinksetid: 9b44a949-a98d-4969-afd9-8569b33f7829
 - adx_disablepagevalidation: false
   adx_displayimageonly: false
-  adx_displayorder: 5
+  adx_displayorder: 6
   adx_displaypagechildlinks: false
   adx_name: Engagement
   adx_openinnewwindow: false
@@ -55,7 +66,7 @@
   adx_weblinksetid: 9b44a949-a98d-4969-afd9-8569b33f7829
 - adx_disablepagevalidation: false
   adx_displayimageonly: false
-  adx_displayorder: 6
+  adx_displayorder: 7
   adx_displaypagechildlinks: false
   adx_name: Roadmap
   adx_openinnewwindow: false

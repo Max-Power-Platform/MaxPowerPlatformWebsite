@@ -199,7 +199,333 @@ function Write-Utf8NoBom([string]$path, [string]$text) {
   [System.IO.File]::WriteAllText($full, $text, (New-Object System.Text.UTF8Encoding $false))
 }
 
-# --- Helper: render a tile for the home page ---
+# --- Operating System page metadata ---
+$osPage = @{
+  slug='operating-system'; folder='operating-system'; pretty='OperatingSystem'; title='How Max Power Platform runs the whole nonprofit'
+  pageId=$null
+  summary='One mission, one record, one operating system: public-facing work, mission operations, back-office engine, and shared data — all running as a continuous loop.'
+}
+
+# --- Operating System ring data (center → inner → middle → outer) ---
+$osRings = @(
+  @{ key='center'; label='One mission, one record'; color='#1F66B5'; desc='Every contact, property, program, funding source, and outcome lives in one shared Dataverse.' }
+  @{ key='inner';  label='Back-office engine';      color='#2E7D32'; desc='Finance, payroll, HR, compliance, grants, legal, IT, governance, and audit — the engine that makes the mission accountable and sustainable.' }
+  @{ key='middle'; label='Mission operations';      color='#F57C00'; desc='The programs and workflows that deliver the mission: intake, education, counseling, lending, construction, property management, fundraising, and grants.' }
+  @{ key='outer';  label='Public-facing work';      color='#7A6A65'; desc='What the world sees and touches: website, Power Pages portals, classes, closings, donations, rent payments, bids, and reports. We design and operate the constituent, donor, vendor, and tenant portals that feed the back office.' }
+)
+
+$osNodes = @(
+  @{ ring='center'; label='Shared Dataverse'; r=0.0; a=0; icon='&#9729;' },
+  @{ ring='inner'; label='Finance'; r=55; a=0;   },
+  @{ ring='inner'; label='Payroll'; r=55; a=45;  },
+  @{ ring='inner'; label='HR'; r=55; a=90;      },
+  @{ ring='inner'; label='Compliance'; r=55; a=135; },
+  @{ ring='inner'; label='Grants'; r=55; a=180;    },
+  @{ ring='inner'; label='Legal'; r=55; a=225;    },
+  @{ ring='inner'; label='IT/Security'; r=55; a=270; },
+  @{ ring='inner'; label='Governance'; r=55; a=315; },
+  @{ ring='middle'; label='Outreach'; r=115; a=0;   },
+  @{ ring='middle'; label='Education'; r=115; a=30;  },
+  @{ ring='middle'; label='DPA'; r=115; a=60;        },
+  @{ ring='middle'; label='Construction'; r=115; a=90; },
+  @{ ring='middle'; label='Property'; r=115; a=120;   },
+  @{ ring='middle'; label='Fundraising'; r=115; a=150; },
+  @{ ring='middle'; label='Volunteers'; r=115; a=180; },
+  @{ ring='middle'; label='Procurement'; r=115; a=210; },
+  @{ ring='middle'; label='AP'; r=115; a=240;         },
+  @{ ring='middle'; label='LMS'; r=115; a=270;        },
+  @{ ring='middle'; label='HR'; r=115; a=300;         },
+  @{ ring='middle'; label='Plans'; r=115; a=330;       },
+  @{ ring='outer'; label='Website'; r=175; a=0;     },
+  @{ ring='outer'; label='Portal'; r=175; a=30;    },
+  @{ ring='outer'; label='Classes'; r=175; a=60;   },
+  @{ ring='outer'; label='Closings'; r=175; a=90;  },
+  @{ ring='outer'; label='Donations'; r=175; a=120; },
+  @{ ring='outer'; label='Rent'; r=175; a=150;     },
+  @{ ring='outer'; label='Bids'; r=175; a=180;     },
+  @{ ring='outer'; label='Reports'; r=175; a=210;   },
+  @{ ring='outer'; label='Events'; r=175; a=240;    },
+  @{ ring='outer'; label='Email'; r=175; a=270;     },
+  @{ ring='outer'; label='Support'; r=175; a=300;   },
+  @{ ring='outer'; label='Mobile'; r=175; a=330;    }
+)
+
+# --- Transaction flows: each step has ring, label, and description ---
+$osTransactions = @{
+  'hbe' = @(
+    @{ ring='outer'; label='Signs up for class'; desc='Prospective homebuyer registers on the portal.' }
+    @{ ring='middle'; label='HBE schedules'; desc='Class roster, reminders, and attendance tracking.' }
+    @{ ring='middle'; label='Issues certificate'; desc='Certificate generated automatically and emailed.' }
+    @{ ring='inner';  label='9902 report line'; desc='HUD 9902 attendance report is updated.' }
+    @{ ring='center'; label='Contact record updated'; desc='Certificate and eligibility now live on the same contact record.' }
+    @{ ring='outer'; label='Prompted to apply'; desc='Portal suggests the next step: Down Payment Assistance.' }
+  )
+  'dpa' = @(
+    @{ ring='outer'; label='Submits application'; desc='Household applies online and uploads documents.' }
+    @{ ring='middle'; label='DPA verifies income'; desc='Income verification, AMI calculation, and underwriting workflow.' }
+    @{ ring='inner';  label='Compliance check'; desc='Eligibility, funding-source rules, and audit trail.' }
+    @{ ring='middle'; label='Closing & lien'; desc='Award, closing, and lien recording.' }
+    @{ ring='inner';  label='Disbursement & AP'; desc='Funds wired and recorded in Accounts Payable.' }
+    @{ ring='center'; label='Property + loan linked'; desc='Property and loan records are tied to the contact for servicing.' }
+  )
+  'rent' = @(
+    @{ ring='outer'; label='Tenant pays rent'; desc='Tenant pays through the self-service portal.' }
+    @{ ring='middle'; label='Property posts payment'; desc='Rent roll, late notices, and ledger updated.' }
+    @{ ring='inner';  label='AR + bank deposit'; desc='Accounts receivable and cash flow updated.' }
+    @{ ring='middle'; label='Maintenance request'; desc='Work order created, vendor dispatched, parts ordered.' }
+    @{ ring='inner';  label='Vendor invoice paid'; desc='Invoice matched to work order, approved, and paid.' }
+    @{ ring='center'; label='Tenant + unit updated'; desc='Tenant ledger and unit financials are current.' }
+  )
+  'donate' = @(
+    @{ ring='outer'; label='Donor gives online'; desc='One-time or recurring gift on the website.' }
+    @{ ring='middle'; label='Fundraising records gift'; desc='Gift recorded, receipt issued, acknowledgment queued.' }
+    @{ ring='inner';  label='GL + tax receipt'; desc='General ledger entry and tax receipt generated.' }
+    @{ ring='middle'; label='Engagement journey'; desc='Newsletter segmentation, stewardship, and next ask.' }
+    @{ ring='inner';  label='Board report'; desc='Giving dashboards and campaign P&L updated.' }
+    @{ ring='center'; label='Donor record updated'; desc='Gift history and engagement score in one place.' }
+  )
+  'draw' = @(
+    @{ ring='outer'; label='Contractor submits draw'; desc='Draw request, lien release, and inspection evidence.' }
+    @{ ring='middle'; label='CMS reviews draw'; desc='Budget check, approval workflow, and status update.' }
+    @{ ring='middle'; label='Procurement validates'; desc='Vendor compliance, PO matching, and contract terms.' }
+    @{ ring='inner';  label='AP + payment'; desc='Approved draw becomes a payment with full audit trail.' }
+    @{ ring='inner';  label='Grant reporting'; desc='Draw coded to funding source and reported to funder.' }
+    @{ ring='center'; label='Project record updated'; desc='Budget, cash flow, and compliance all reflect the draw.' }
+  )
+}
+
+# --- Operating system page: HTML builder ---
+function Get-OperatingSystemHtml() {
+  $ringMeta = @{}
+  foreach ($r in $osRings) { $ringMeta[$r.key] = $r }
+
+  $cx = 240; $cy = 240
+  function Pt($r,$a) {
+    $rad = $a * [Math]::PI / 180
+    return @{ x = $cx + $r * [Math]::Cos($rad); y = $cy + $r * [Math]::Sin($rad) }
+  }
+
+  # Build SVG nodes
+  $nodeGroups = New-Object System.Collections.Generic.List[string]
+  foreach ($n in $osNodes) {
+    $meta = $ringMeta[$n.ring]
+    $p = Pt $n.r $n.a
+    $label = $n.label
+    $nodeGroups.Add("<g class='os-node' data-ring='$($n.ring)' tabindex='0' role='button' aria-label='$label, $($meta.label)'><circle cx='$($p.x)' cy='$($p.y)' r='12' fill='white' stroke='$($meta.color)' stroke-width='3'/><text x='$($p.x)' y='$($p.y + 24)' text-anchor='middle' font-size='10' fill='#333' font-family='Arial, sans-serif'>$label</text></g>")
+  }
+
+  # Build ring labels
+  $ringLabelGroups = New-Object System.Collections.Generic.List[string]
+  foreach ($r in $osRings) {
+    if ($r.key -eq 'center') { $y = $cy + 4; $x = $cx; $fs = 12; $fw = 'bold' }
+    else { $y = switch($r.key){ 'inner' { $cy - 75 } 'middle' { $cy - 140 } 'outer' { $cy - 195 } }; $x = $cx; $fs = 13; $fw = 'bold' }
+    $ringLabelGroups.Add("<text x='$x' y='$y' text-anchor='middle' font-size='$fs' font-weight='$fw' fill='$($r.color)' font-family='Arial, sans-serif'>$($r.label)</text>")
+  }
+
+  # Build transaction options
+  $txnOptions = ($osTransactions.Keys | ForEach-Object {
+    $key = $_
+    $label = switch($key){ 'hbe' { 'Homebuyer class → DPA' }; 'dpa' { 'Assistance application → closing' }; 'rent' { 'Tenant rent → maintenance' }; 'donate' { 'Donation → board report' }; 'draw' { 'Construction draw → payment' } }
+    "<option value='$key'>$label</option>"
+  }) -join "`n"
+
+  $txnJson = ($osTransactions.Keys | ForEach-Object {
+    # key assigned above
+    $key = $_
+    $steps = $osTransactions[$key] | ForEach-Object {
+      $meta = $ringMeta[$_.ring]
+      $labelEsc = $_.label -replace "'", "\\\\'"
+      $descEsc = $_.desc -replace "'", "\\\\'"
+      "{ ring:'$($_.ring)', label:'$labelEsc', desc:'$descEsc', color:'$($meta.color)' }"
+    }
+    $commaForJoin = ","
+    "$key`: [$($steps -join $commaForJoin)]"
+  }) -join ",`n"
+  $svgNodes = ($nodeGroups -join "`n") + "`n" + ($ringLabelGroups -join "`n")
+  return @"
+<div class="row sectionBlockLayout" style="display:flex;flex-wrap:wrap;margin:0;padding:56px 8px 24px;background:#ffffff;">
+      <div style="display:flex;flex-wrap:wrap;gap:18px;margin-bottom:24px;">
+        <label style="font-size:.95rem;color:#444;">Follow a transaction:
+          <select id="osTxn" style="margin-left:6px;padding:6px 10px;border:1px solid #ccc;border-radius:6px;font-size:1rem;">
+            <option value="">— hover the rings to explore —</option>
+$txnOptions
+          </select>
+        </label>
+        <button id="osPlay" type="button" style="padding:6px 16px;background:#1F66B5;color:#fff;border:0;border-radius:6px;font-weight:600;cursor:pointer;">Play</button>
+        <button id="osPause" type="button" style="padding:6px 16px;background:#fff;color:#1F66B5;border:1px solid #1F66B5;border-radius:6px;font-weight:600;cursor:pointer;">Pause</button>
+      </div>
+
+      <div style="position:relative;max-width:520px;margin:0 auto;">
+        <svg id="osSvg" viewBox="0 0 480 480" style="width:100%;height:auto;" role="img" aria-label="Concentric operating system rings">
+          <circle cx="$cx" cy="$cy" r="30" fill="#1F66B5" opacity="0.15"/>
+          <circle cx="$cx" cy="$cy" r="75" fill="none" stroke="#2E7D32" stroke-width="2" stroke-dasharray="6,4"/>
+          <circle cx="$cx" cy="$cy" r="135" fill="none" stroke="#F57C00" stroke-width="2" stroke-dasharray="6,4"/>
+          <circle cx="$cx" cy="$cy" r="195" fill="none" stroke="#7A6A65" stroke-width="2" stroke-dasharray="6,4"/>
+          <g id="osPulseLayer"></g>
+          $svgNodes
+        </svg>
+        <div id="osPanel" style="margin-top:18px;background:#f7f8fa;border:1px solid #e3e3e3;border-radius:8px;padding:18px;min-height:90px;">
+          <p style="margin:0;color:#666;font-size:.95rem;">Hover a ring or node to see what it does. Select a transaction and click Play to watch the data flow.</p>
+        </div>
+      </div>
+
+      <div style="max-width:760px;margin:32px auto 0;">
+        <h2 style="color:#7A6A65;margin:0 0 12px;">The four rings</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;">
+          $(($osRings | ForEach-Object { "<div style='flex:1 1 200px;background:#fff;border:1px solid #e3e3e3;border-radius:8px;padding:16px;'><h3 style='margin:0 0 6px;color:$($_.color);font-size:1rem;'>$($_.label)</h3><p style='margin:0;color:#555;font-size:.9rem;'>$($_.desc)</p></div>" }) -join "`n")
+        </div>
+      </div>
+
+      <p style="margin-top:36px;text-align:center;">
+        <a href="/" style="display:inline-block;background:#1F66B5;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;">&larr; Back to Max Power Platform</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var rings = {
+    center: {label:'One mission, one record', desc:'Every contact, property, program, funding source, and outcome lives in one shared Dataverse.'},
+    inner: {label:'Back-office engine', desc:'Finance, payroll, HR, compliance, grants, legal, IT, governance, and audit — the engine that makes the mission accountable and sustainable.'},
+    middle: {label:'Mission operations', desc:'The programs and workflows that deliver the mission: intake, education, counseling, lending, construction, property management, fundraising, and grants.'},
+    outer: {label:'Public-facing work', desc:'What the world sees and touches: website, portal, classes, closings, donations, rent payments, bids, and reports.'}
+  };
+  var transactions = {
+$txnJson
+  };
+  var panel = document.getElementById('osPanel');
+  var svg = document.getElementById('osSvg');
+  var pulseLayer = document.getElementById('osPulseLayer');
+  var txnSelect = document.getElementById('osTxn');
+  var playBtn = document.getElementById('osPlay');
+  var pauseBtn = document.getElementById('osPause');
+  var currentStep = 0;
+  var currentTxn = null;
+  var timer = null;
+
+  function showRingInfo(key) {
+    var r = rings[key];
+    panel.innerHTML = '<h3 style="margin:0 0 6px;color:' + (key==='center'?'#1F66B5':key==='inner'?'#2E7D32':key==='middle'?'#F57C00':'#7A6A65') + '">' + r.label + '</h3><p style="margin:0;color:#555;">' + r.desc + '</p>';
+  }
+
+  function pulseRing(key, label, desc, color) {
+    var ringRadii = {center:30, inner:75, middle:135, outer:195};
+    var r = ringRadii[key] || 75;
+    var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx','240'); c.setAttribute('cy','240'); c.setAttribute('r',r);
+    c.setAttribute('fill','none'); c.setAttribute('stroke',color); c.setAttribute('stroke-width','4');
+    c.setAttribute('opacity','0.8');
+    pulseLayer.appendChild(c);
+    setTimeout(function(){ if(c.parentNode) c.parentNode.removeChild(c); }, 900);
+    panel.innerHTML = '<h3 style="margin:0 0 6px;color:' + color + '">' + label + '</h3><p style="margin:0;color:#555;">' + desc + '</p>';
+  }
+
+  function playTransaction() {
+    var key = txnSelect.value;
+    if (!key || !transactions[key]) return;
+    if (timer) { clearInterval(timer); timer = null; }
+    currentTxn = transactions[key];
+    currentStep = 0;
+    pulseLayer.innerHTML = '';
+    function step() {
+      if (!currentTxn || currentStep >= currentTxn.length) { if(timer){clearInterval(timer);timer=null;} return; }
+      var s = currentTxn[currentStep];
+      pulseRing(s.ring, s.label, s.desc, s.color);
+      currentStep++;
+    }
+    step();
+    timer = setInterval(step, 1400);
+  }
+
+  function pauseTransaction() { if (timer) { clearInterval(timer); timer = null; } }
+
+  svg.addEventListener('mouseover', function(e) {
+    var g = e.target.closest('.os-node');
+    if (g) { showRingInfo(g.getAttribute('data-ring')); }
+  });
+  svg.addEventListener('focus', function(e) {
+    var g = e.target.closest('.os-node');
+    if (g) { showRingInfo(g.getAttribute('data-ring')); }
+  }, true);
+  svg.addEventListener('click', function(e) {
+    var g = e.target.closest('.os-node');
+    if (g) { showRingInfo(g.getAttribute('data-ring')); }
+  });
+  playBtn.addEventListener('click', playTransaction);
+  pauseBtn.addEventListener('click', pauseTransaction);
+})();
+</script>
+"@
+}
+
+function Write-OperatingSystemPage() {
+  $folder = "$rootPages/$($osPage.folder)"
+  $contentFolder = "$folder/content-pages"
+  if (-not (Test-Path $contentFolder)) { New-Item -ItemType Directory -Force -Path $contentFolder | Out-Null }
+
+  $rootYmlPath = "$folder/$($osPage.pretty).webpage.yml"
+  if (-not (Test-Path $rootYmlPath)) {
+    $rootGuid = [guid]::NewGuid().ToString()
+    $contentGuid = [guid]::NewGuid().ToString()
+    $rootYml = @"
+adx_displayorder: 50
+adx_enablerating: false
+adx_enabletracking: false
+adx_excludefromsearch: false
+adx_feedbackpolicy: 756150000
+adx_hiddenfromsitemap: true
+adx_isroot: true
+adx_name: $($osPage.pretty)
+adx_pagetemplateid: $pageTemplateId
+adx_parentpageid: $homeId
+adx_partialurl: $($osPage.slug)
+adx_publishingstateid: $publishingId
+adx_sharedpageconfiguration: false
+adx_title: $($osPage.title)
+adx_webpageid: $rootGuid
+"@
+    Write-Utf8NoBom "$folder/$($osPage.pretty).webpage.yml" $rootYml
+    Write-Utf8NoBom "$folder/$($osPage.pretty).webpage.copy.html" ''
+    Write-Utf8NoBom "$folder/$($osPage.pretty).webpage.summary.html" ''
+    Write-Utf8NoBom "$folder/$($osPage.pretty).webpage.custom_css.css" ''
+    Write-Utf8NoBom "$folder/$($osPage.pretty).webpage.custom_javascript.js" ''
+
+    $contentYml = @"
+adx_displayorder: 50
+adx_enablerating: false
+adx_enabletracking: false
+adx_excludefromsearch: false
+adx_feedbackpolicy: 756150000
+adx_hiddenfromsitemap: true
+adx_isroot: false
+adx_name: $($osPage.pretty)
+adx_pagetemplateid: $pageTemplateId
+adx_parentpageid: $homeId
+adx_partialurl: $($osPage.slug)
+adx_publishingstateid: $publishingId
+adx_rootwebpageid: $rootGuid
+adx_sharedpageconfiguration: false
+adx_title: $($osPage.title)
+adx_webpageid: $contentGuid
+adx_webpagelanguageid: $languageId
+"@
+    Write-Utf8NoBom "$contentFolder/$($osPage.pretty).en-US.webpage.yml" $contentYml
+    Write-Utf8NoBom "$contentFolder/$($osPage.pretty).en-US.webpage.summary.html" ''
+    Write-Utf8NoBom "$contentFolder/$($osPage.pretty).en-US.webpage.custom_css.css" ''
+    Write-Utf8NoBom "$contentFolder/$($osPage.pretty).en-US.webpage.custom_javascript.js" ''
+
+    $osPage.pageId = $rootGuid
+    Write-Host "  + created page records for $($osPage.title) (root=$rootGuid)"
+  } else {
+    $rawY = Get-Content $rootYmlPath -Raw
+    if ($rawY -match 'adx_webpageid:\s*([0-9a-fA-F-]{36})') { $osPage.pageId = $Matches[1] }
+  }
+
+  Write-Utf8NoBom "$contentFolder/$($osPage.pretty).en-US.webpage.copy.html" (Get-OperatingSystemHtml)
+}
+
+
 function Tile-Html($m, [switch]$m365) {
   # All roadmap and live modules now render with the same blue accent and full opacity
   $borderColor = '#1F66B5'
@@ -330,6 +656,7 @@ foreach ($m in $modules) {
   }
 }
 Write-M365Page
+Write-OperatingSystemPage
 
 $missingCount = 0
 foreach ($m in $modules) {
@@ -474,7 +801,7 @@ $($($m365Service.bullets | ForEach-Object { "              <li>$($_)</li>" }) -j
             </ul>
           </div>
           <div style="margin-top:20px;">
-            <a href="#programs" style="display:inline-block;background:#1F66B5;color:#fff;padding:10px 22px;border-radius:6px;text-decoration:none;font-weight:600;">Explore the suite &darr;</a>
+            <a href="/operating-system/" style="display:inline-block;background:#1F66B5;color:#fff;padding:10px 22px;border-radius:6px;text-decoration:none;font-weight:600;">See how it works &rarr;</a>
           </div>
         </div>
 
@@ -661,6 +988,7 @@ $parentIds = @{
   'engagement'  = 'aa000003-0000-4000-8000-000000000003'
   'coming-soon' = 'aa000004-0000-4000-8000-000000000004'
 }
+$osWebLinkId = 'aa000006-0000-4000-8000-000000000006'
 $parentLabels = @{
   'programs'    = 'Programs'
   'operations'  = 'Operations'
@@ -696,8 +1024,11 @@ Add-WL -name 'Managed M365' -order 1 -wid $m365WebLinkId -pageId $m365Service.pa
 # Top-level: Home
 Add-WL -name 'Home' -order 2 -wid $homeWebLinkId -pageId $homeId
 
+# Top-level: How it works (operating system page)
+Add-WL -name 'How it works' -order 3 -wid $osWebLinkId -pageId $osPage.pageId
+
 # Top-level: 4 category parents (no page, just labels with children)
-$top = 3
+$top = 4
 foreach ($key in $parentOrder) {
   Add-WL -name $parentLabels[$key] -order $top -wid $parentIds[$key] -externalUrl '#'
   $top++
