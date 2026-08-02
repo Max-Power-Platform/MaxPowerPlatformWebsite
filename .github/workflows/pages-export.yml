@@ -1,0 +1,51 @@
+name: Pages — drift detection (nightly)
+
+# Nightly: pull live Dev site, open a PR if anything changed in Studio.
+# See MaxShared/docs/SUITE-SOLUTION-STRATEGY-2026-05-14.md §17.5
+
+on:
+  schedule:
+    - cron: '17 7 * * *'   # 07:17 UTC daily
+  workflow_dispatch:
+
+permissions:
+  id-token: write       # required for azure/login OIDC
+  contents: write
+  pull-requests: write
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.MPP_PAGES_APP_ID }}
+          tenant-id: ${{ vars.MPP_TENANT_ID }}
+          allow-no-subscriptions: true
+
+      - name: Install Power Platform CLI
+        uses: microsoft/powerplatform-actions/actions-install@v1
+
+      - name: pac auth (re-uses az token)
+        env:
+          ENV_URL: ${{ vars.MPP_DEV_ENV_URL }}
+        run: |
+          pac auth create --name nonprofit-website-dev \
+            --environment "$ENV_URL" \
+            --azureCliAuth
+
+      - name: Download Dev site
+        run: pwsh ./scripts/pages-download.ps1 -Env dev
+
+      - name: Open PR if drift
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/studio-drift
+          title: 'chore(pages): Studio drift sync'
+          body: |
+            Nightly `pac pages download` against Dev produced changes.
+            Review and merge to keep `src/website/` in sync with Studio edits.
+          commit-message: 'chore(pages): nightly drift sync from Dev'

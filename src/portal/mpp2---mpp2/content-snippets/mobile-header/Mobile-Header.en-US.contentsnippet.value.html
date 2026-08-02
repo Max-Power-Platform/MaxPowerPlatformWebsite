@@ -1,0 +1,17 @@
+<style>
+  /* MPP brand override — replaces the default Power Pages theme color */
+  .navbar.static-top, header .navbar { background-color: #ffffff !important; border-bottom: 3px solid #1F66B5 !important; box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important; }
+  .navbar .nav-link, .navbar .username, .navbar .drop_language { color: #1F66B5 !important; font-weight: 500; }
+  .navbar .nav-link:hover, .navbar .nav-link:focus { color: #154a87 !important; text-decoration: underline; }
+  .navbar .navbar-icon .glyphicon, .navbar .glyphicon { color: #1F66B5 !important; }
+  .navbar .divider-vertical { border-color: transparent !important; }
+  .navbar .dropdown-menu { border-top: 3px solid #1F66B5; }
+  .navbar .dropdown-item:hover { background-color: #f0f6fc !important; color: #1F66B5 !important; }
+  /* Footer link colors handled in the Footer snippet */
+</style>
+<a href="~/" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+  {% if snippets['Logo URL'] %}<img src="{{ snippets['Logo URL'] }}" alt="{{ snippets['Logo alt text'] }}" style="width:auto;height:44px;">{% endif %}
+  {% if snippets['Site name'] %}
+    <span class="siteTitle custom-sitetitle" style="font-size:1.1rem;font-weight:600;color:#1F66B5;line-height:1.1;">{{ snippets['Site name'] }}</span>
+  {% endif %}
+</a>

@@ -1,0 +1,17 @@
+# Power Pages download / upload artifacts
+src/portal/.cache/
+src/portal/.tmp/
+*.log
+
+# pac CLI scratch
+.pac/
+
+# Local environment overrides
+scripts/.local.json
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/*.local
+
+yaml-syntax-errors.txt

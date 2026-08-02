@@ -1,0 +1,50 @@
+name: Pages — deploy to PROD
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "PROD" to confirm production deploy'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm production
+        run: |
+          if [ "${{ inputs.confirm }}" != "PROD" ]; then
+            echo "Refusing prod deploy — type 'PROD' in the confirm input." >&2
+            exit 1
+          fi
+
+  deploy:
+    needs: guard
+    runs-on: ubuntu-latest
+    environment: prod    # GitHub environment with required reviewers
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.MPP_PAGES_APP_ID }}
+          tenant-id: ${{ vars.MPP_TENANT_ID }}
+          allow-no-subscriptions: true
+      - name: Install Power Platform CLI
+        uses: microsoft/powerplatform-actions/actions-install@v1
+      - name: pac auth (re-uses az token)
+        env:
+          ENV_URL: ${{ vars.MPP_PROD_ENV_URL }}
+        run: |
+          pac auth create --name nonprofit-website-prod \
+            --environment "$ENV_URL" \
+            --azureCliAuth
+      - name: Upload to PROD
+        run: pwsh ./scripts/pages-upload.ps1 -Env prod -ConfirmProd

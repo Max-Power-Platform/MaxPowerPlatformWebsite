@@ -1,0 +1,32 @@
+name: Pages — deploy to UAT
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: uat
+    steps:
+      - uses: actions/checkout@v4
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.MPP_PAGES_APP_ID }}
+          tenant-id: ${{ vars.MPP_TENANT_ID }}
+          allow-no-subscriptions: true
+      - name: Install Power Platform CLI
+        uses: microsoft/powerplatform-actions/actions-install@v1
+      - name: pac auth (re-uses az token)
+        env:
+          ENV_URL: ${{ vars.MPP_UAT_ENV_URL }}
+        run: |
+          pac auth create --name nonprofit-website-uat \
+            --environment "$ENV_URL" \
+            --azureCliAuth
+      - name: Upload to UAT
+        run: pwsh ./scripts/pages-upload.ps1 -Env uat

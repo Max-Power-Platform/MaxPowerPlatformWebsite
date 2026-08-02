@@ -1,0 +1,11 @@
+{
+  "_comment": "Power Pages WebSiteId GUIDs per env. Discovered via pac pages list. NOT secrets — safe to commit.",
+  "_envMap": {
+    "dev":  { "name": "MPP",  "url": "https://mpp1.crm.dynamics.com/" },
+    "uat":  { "name": "TBD",  "url": "Separate UAT portal not yet provisioned" },
+    "prod": { "name": "TBD",  "url": "Separate Prod portal not yet provisioned" }
+  },
+  "dev":  "379c4182-4ae2-46d0-9112-324244319bd6",
+  "uat":  "REPLACE-WITH-UAT-WEBSITE-ID",
+  "prod": "REPLACE-WITH-PROD-WEBSITE-ID"
+}

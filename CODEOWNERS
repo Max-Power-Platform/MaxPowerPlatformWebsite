@@ -1,0 +1,13 @@
+# CODEOWNERS — MaxPowerPlatformWebsite
+
+# Default owner for everything in this repo
+*                                @MaxMaraj
+
+# Scripts: deployment automation
+/scripts/                        @MaxMaraj
+
+# CI/CD workflows
+/.github/workflows/              @MaxMaraj
+
+# Documentation
+/docs/                           @MaxMaraj
