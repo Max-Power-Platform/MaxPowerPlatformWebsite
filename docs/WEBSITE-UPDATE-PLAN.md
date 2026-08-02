@@ -24,7 +24,7 @@ Max Power Platform sells **two offerings**. Both must appear:
 | # | Offering | Client Need | What We Deliver |
 |---|---|---|---|
 | **1** | **M365 Managed Services** | "We need someone to manage our Microsoft 365 — users, licenses, security, compliance." | Tenant ops console, onboarding/offboarding automation, license health, audit trail, Graph-powered help desk delegation |
-| **2** | **Max Power Suite** | "We need a modern platform to run our housing programs, back-office, and fundraising — all connected." | 14 connected Power Platform modules on a shared Dataverse tenant, with AI agents, React SPAs, and integrations |
+| **Max Power Suite** | "We need a modern platform to run our housing programs, back-office, and fundraising — all connected." | 14 live Power Platform modules on a shared Dataverse tenant, with AI agents, React SPAs, and integrations |
 
 ---
 
@@ -55,7 +55,7 @@ Max Power Platform sells **two offerings**. Both must appear:
 | Module | Current | Upgrade |
 |---|---|---|
 | **Accounts Payable** | "Vendor invoice intake, multi-step approvals, AP role teams, and Copilot Studio AP agents — built on the shared mpp_bill family." | "AI reads your invoices — PDFs, images, emails — and extracts the data. QuickBooks Online syncs live. Approval workflows in Teams. One dashboard for everything your AP team touches." |
-| **Procurement** | "RFPs, vendor evaluation, awards, funding sources, vendor certificates, document links — with a real-time analytics console." | "Sealed bidding, vendor compliance, contract buyout, and purchase order matching — the full procure-to-pay lifecycle. Funding-source tracking for audit-ready procurement." |
+| **Procurement** | "RFPs, vendor evaluation, awards, funding sources, vendor certificates, document links — with a real-time analytics console." | "Sealed bidding, vendor compliance, contract buyout, and purchase order matching — the full procure-to-pay lifecycle. Real-time analytics console. Funding-source tracking for audit-ready procurement." |
 | **Property Analyzer** | "Florida address → jurisdiction, zoning, permits, flood, utilities, and a public-records CMA/ARV forecast — the full property due-diligence packet in one tab." | "Florida address → instant jurisdiction, zoning, flood, permits, and utilities across Hillsborough, Pinellas, and Pasco counties. Public-records CMA and ARV forecast. One printable report for your land committee." |
 
 ### 4.3 Fundraising & Engagement (4 tiles)
@@ -63,7 +63,7 @@ Max Power Platform sells **two offerings**. Both must appear:
 | Module | Current | Upgrade |
 |---|---|---|
 | **Fundraising & Engagement** | "Donors, gifts, pledges, recurring giving, events, silent auctions, planned giving, GL export — with Stripe and donor portal." | "Stripe-powered donations with PCI-compliant processing. Real-time silent auctions with proxy bidding. Donor portal for self-service giving history. General ledger export to QuickBooks, Intacct, or MIP." |
-| **Grant Management** | "Track grant opportunities, applications, awards, budget commitments, and 90/60/30/14/7-day deadline alerts." | "Track grant opportunities, applications, awards, and budget commitments. Automated deadline alerts at 90, 60, 30, 14, and 7 days. AI grant agent coming to match opportunities to your programs." |
+| **Grant Management** | "Track grant opportunities, applications, awards, budget commitments, and 90/60/30/14/7-day deadline alerts." | "Track grant opportunities, applications, awards, and budget commitments. Automated deadline alerts at 90, 60, 30, 14, and 7 days. AI grant agent to match opportunities to your programs." |
 | **Volunteer Management** | "Recruit, schedule, track hours, and recognize volunteers — tied to the same Dataverse contact and program records." | "Recruit, schedule, track hours, and recognize volunteers — tied to the same contact and program records. One system for clients and volunteers. Recognition and retention dashboards." |
 | **Bulk Email & Newsletter** | "Newsletters and segmented bulk email through Azure Communication Services with marketing-list automation and unsubscribe handling." | "Send thousands of emails with built-in quota management. One-click unsubscribe. Email validation to protect your sender reputation. Automated journeys — welcome series, renewal reminders, event follow-ups." |
 
@@ -71,9 +71,9 @@ Max Power Platform sells **two offerings**. Both must appear:
 
 | Module | Current | Upgrade |
 |---|---|---|
-| **Project Management** *(was "Plan Manager")* | "Coming soon — strategic plan, outcomes, KPIs, and quarterly progress tracking" | "Full Microsoft Project parity — WBS, dependencies, cascade scheduling, working calendars, baselines, and critical path. Built natively on Dataverse, independent of Microsoft Project for the Web." |
-| **Human Resources** | "Coming soon — staff onboarding, time-off, performance reviews, and HR document control" | "Staff onboarding, time-off tracking, performance reviews, and HR document control — all connected to the same platform your programs run on." |
-| **Learning Management** | "Coming soon — training catalog, course completions, certifications, and CEU tracking" | "Training catalog, course completions, certifications, and CEU tracking. Your staff and partner agencies stay current — tracked and auditable." |
+| **Project Management** *(was "Plan Manager")* | "Coming soon — strategic plan, outcomes, KPIs, and quarterly progress tracking" | "Full Microsoft Project parity — WBS, dependencies, cascade scheduling, working calendars, baselines, and critical path. Built natively on Dataverse, independent of Microsoft Project for the Web. Live in production." |
+| **Human Resources** | "Coming soon — staff onboarding, time-off, performance reviews, and HR document control" | "Staff onboarding, time-off tracking, performance reviews, and HR document control — all connected to the same platform your programs run on. On the roadmap." |
+| **Learning Management** | "Coming soon — training catalog, course completions, certifications, and CEU tracking" | "Training catalog, course completions, certifications, and CEU tracking. Your staff and partner agencies stay current — tracked and auditable. On the roadmap." |
 
 ---
 
