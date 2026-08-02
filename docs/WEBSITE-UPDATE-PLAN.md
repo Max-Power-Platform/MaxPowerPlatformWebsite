@@ -1,10 +1,16 @@
 # Website Update Plan — Marketing Refresh
 ## MaxPowerPlatformWebsite — `www.maxpowerplatform.com`
 
-**Version**: 4.0
+**Version**: 5.0
 **Date**: 2026-08-02
 **Status**: Plan — Awaiting Approval
 **Principle**: Build on the existing voice. The current hero is strong. Add the M365 offering alongside it.
+
+**Companion documents**:
+- `docs/BACKLOG.md` — Epic, features, requirements, risk register.
+- `docs/SPRINT-PLAN.md` — Sprint-by-sprint PR plan and definition of done.
+
+**Critical prerequisite**: Resolve the content source-of-truth conflict before Sprint 1. `SESSION_HANDOFF.md` calls `scripts/Build-Site.ps1` the single source of truth, while newer docs describe Studio-first / code-first file editing. This plan assumes a decision is recorded in `docs/EDIT-WORKFLOW.md` or a new `docs/CONTENT-SOURCE-OF-TRUTH.md` before any content is changed.
 
 ---
 
@@ -113,7 +119,7 @@ CONTACT (unchanged)
 | Tile | Copy |
 |---|---|
 | 🏠 **Homebuyer Education** | "HUD-style classes, 1:1 counseling, education lock-in, and certificate issuance. HUD-9902 compliant reporting built in. Electronic signatures. One console your counselors, educators, and directors all use — the front door to every assistance program." |
-| 💰 **Down Payment Assistance** | "SHIP, HOME, and HTF-funded purchase assistance — applications, underwriting, awards, closings, liens, and HUD reporting. Works across Tampa, Clearwater, Largo, St. Petersburg, Hillsborough, and Pinellas. Real-time financial calculations." |
+| 💰 **Down Payment Assistance** | "SHIP, HOME, and HTF-funded purchase assistance — applications, underwriting, awards, closings, liens, and HUD reporting. Multi-jurisdiction and multi-funding-source support. Real-time financial calculations." |
 | 🏟  **Construction Management** | "Construction project management — proformas, deals, development tracking, draws, time tracking, payment approvals, and document control. Three purpose-built consoles. AI agent alongside your project managers. SharePoint document control." |
 | 🏛  **Property Management** | "Real-estate portfolio, units, tenants, leases, and rent rolls in one console. Vacancy and turn-time metrics. Florida-specific lease notices. Tenant self-service portal. Work order management." |
 
@@ -123,7 +129,7 @@ CONTACT (unchanged)
 |---|---|
 | 🥶  **Accounts Payable** | "AI reads your invoices — PDFs, images, and emails — and extracts the data automatically. QuickBooks Online syncs live. Approval workflows in Teams. One dashboard for everything your AP team touches — built on the shared mpp_bill family." |
 | 📦 **Procurement** | "Sealed bidding, vendor compliance, contract buyout, and purchase order matching — the full procure-to-pay lifecycle. Funding-source tracking for audit-ready procurement. Real-time analytics console." |
-| 📍 **Property Analyzer** | "Florida address → instant jurisdiction, zoning, flood, permits, and utilities across Hillsborough, Pinellas, and Pasco counties. Public-records CMA and ARV forecast. One printable report for your land committee." |
+| 📍 **Property Analyzer** | "Florida address → instant jurisdiction, zoning, flood, permits, and utilities. Multi-county coverage with server-side address suggestions. Public-records CMA and ARV forecast. One printable report for your land committee." |
 
 ### Engagement
 
@@ -138,7 +144,7 @@ CONTACT (unchanged)
 
 | Tile | Copy |
 |---|---|
-| 📊 **Project Management** *(was Plan Manager)* | "Full Microsoft Project parity — WBS, dependencies, cascade scheduling, working calendars, baselines, and critical path. Built natively on Dataverse, independent of Microsoft Project for the Web." |
+| 📊 **Plan Manager** | "Architectural plan and drawing management for construction projects — version control, markups, submittals, RFIs, and approval workflows. Connected to the same property and project records your team already works from." |
 | 👥 **Human Resources** | "Staff onboarding, time-off tracking, performance reviews, and HR document control — all connected to the same platform your programs run on." |
 | 🎓 **Learning Management** | "Training catalog, course completions, certifications, and CEU tracking. Your staff and partner agencies stay current — tracked and auditable." |
 
@@ -153,7 +159,7 @@ CONTACT (unchanged)
 | HRRP drill-through page (`/hrrp/`) | Archived |
 | "Coming soon" badges on Roadmap tiles | Not needed |
 | Gray borders on Roadmap tiles | Treat same as others |
-| "Plan Manager" → renamed "Project Management" | Matches the real module name |
+| Plan Manager | Not marketed outside TBNHS. Stays as-is in Roadmap — no changes to copy or positioning. |
 
 ---
 
@@ -173,33 +179,115 @@ Programs ▾                    Operations ▾              Engagement ▾      
 
 ---
 
-## 8. Implementation Phases
+## 8. Corrected Implementation Phases
 
-### Phase 1: Home Page HTML (P0)
-| # | Task |
-|---|---|
-| 1.1 | Add M365 hero section + 5 tiles above the existing Suite hero |
-| 1.2 | Remove HRRP tile from Housing Programs section |
-| 1.3 | Enrich 4 Housing Program tile descriptions |
-| 1.4 | Enrich 3 Back-Office tile descriptions |
-| 1.5 | Enrich 4 Engagement tile descriptions |
-| 1.6 | Rename "Plan Manager" → "Project Management" + new copy |
-| 1.7 | Polish HR and LMS copy |
-| 1.8 | Remove "coming soon" badges + gray borders from Roadmap |
+> **Do not execute the original phases above until the source-of-truth decision is recorded.** See `docs/BACKLOG.md` for full requirement IDs and `docs/SPRINT-PLAN.md` for the PR-by-PR schedule.
 
-### Phase 2: Navigation + Pages (P1)
-| # | Task |
-|---|---|
-| 2.1 | Add "Managed M365" top-level nav link |
-| 2.2 | Remove HRRP from Programs dropdown |
-| 2.3 | Rename "Plan Manager" → "Project Management" in Roadmap dropdown |
-| 2.4 | Create `/m365/` web page |
-| 2.5 | Archive `/hrrp/` web page |
+### Pre-Phase: Resolve workflow and naming (Sprint 0)
+| # | Task | Output |
+|---|---|---|
+| 0.1 | Decide content source of truth (`Build-Site.ps1` vs Studio-first vs code-first) | Updated `docs/EDIT-WORKFLOW.md` or `docs/CONTENT-SOURCE-OF-TRUTH.md` |
+| 0.2 | Resolve Plan Manager naming conflict with product owner | Decision recorded in this doc §8.4 |
+| 0.3 | Verify M365 MSP service capabilities match `/m365/` copy | Ops sign-off in backlog risk register |
+| 0.4 | Verify AP QBO sync and Bulk Email journeys are production-live | Evidence attached to F4-REQ-05 / F4-REQ-11 |
 
-### Phase 3: Module Page Enrichment (P2)
-| # | Task |
-|---|---|
-| 3.1 | Enrich `/hbe/`, `/dpa/`, `/cms/`, `/property-management/` |
-| 3.2 | Enrich `/accounts-payable/`, `/procurement/`, `/find-jurisdiction/` |
-| 3.3 | Enrich `/fundraising/`, `/grants/`, `/volunteers/`, `/bulk-email/` |
-| 3.4 | Update `/plan-manager/` → `/project-management/` |
+### Phase 1: M365 foundation (Sprint 1)
+| # | Task | PR |
+|---|---|---|
+| 1.1 | Add M365 hero section + 5 tiles above existing Suite hero | `feat/m365-home-and-page` |
+| 1.2 | Create `/m365/` service page with full drill-through copy | `feat/m365-home-and-page` |
+| 1.3 | Add "Managed M365" to primary nav and footer | `feat/m365-nav-and-footer` |
+| 1.4 | Update `SITE-MAP.md` and `PRD.md` for the new page | `feat/m365-nav-and-footer` |
+
+### Phase 2: Suite catalog refresh (Sprint 2)
+| # | Task | PR |
+|---|---|---|
+| 2.1 | Remove HRRP from site source, nav, footer; archive `/hrrp/` | `feat/remove-hrrp-refresh-hero` |
+| 2.2 | Update Suite hero paragraph (remove "home repair"; fix module count) | `feat/remove-hrrp-refresh-hero` |
+| 2.3 | Enrich 4 Housing Program tile descriptions | `feat/refresh-suite-tiles` |
+| 2.4 | Enrich 3 Back-Office tile descriptions | `feat/refresh-suite-tiles` |
+| 2.5 | Enrich 4 Engagement tile descriptions | `feat/refresh-suite-tiles` |
+| 2.6 | Remove "coming soon" badges + gray borders from Roadmap tiles | `feat/refresh-suite-tiles` |
+| 2.7 | Apply final Plan Manager naming decision (§8.4) | `feat/refresh-suite-tiles` |
+
+### Phase 3: Module page enrichment (Sprint 3)
+| # | Task | PR |
+|---|---|---|
+| 3.1 | Enrich `/hbe/`, `/dpa/`, `/cms/`, `/property-management/` | `feat/enrich-housing-module-pages` |
+| 3.2 | Enrich `/accounts-payable/`, `/procurement/`, `/find-jurisdiction/` | `feat/enrich-backoffice-module-pages` |
+| 3.3 | Enrich `/fundraising/`, `/grants/`, `/volunteers/`, `/bulk-email/` | `feat/enrich-engagement-module-pages` |
+| 3.4 | Update roadmap module page per §8.4 naming decision | `feat/enrich-engagement-module-pages` |
+
+### Phase 4: Conversion, analytics, and go-live (Sprint 4)
+| # | Task | PR |
+|---|---|---|
+| 4.1 | Add "I'm interested in" dropdown or per-page CTAs | `feat/conversion-and-analytics` |
+| 4.2 | Update `<title>`, meta descriptions, Open Graph tags | `feat/conversion-and-analytics` |
+| 4.3 | Add analytics tag (Microsoft Clarity recommended) and event tracking | `feat/conversion-and-analytics` |
+| 4.4 | UAT smoke test + Prod deploy via `pages-deploy-prod.yml` | `chore/deploy-and-docs` |
+| 4.5 | Update `CHANGELOG.md` and mark planning docs superseded | `chore/deploy-and-docs` |
+
+---
+
+## 8.1 Source-of-Truth Decision (Required Before Sprint 1)
+
+`SESSION_HANDOFF.md` describes `scripts/Build-Site.ps1` as the single source of truth: it generates the home page, all module pages, the nav, and the footer. Newer docs describe a Studio-first / code-first workflow where individual files are edited and uploaded with `pages-upload.ps1`.
+
+**These cannot both be true.** Pick one and update the docs:
+
+| Option | Pros | Cons | Best for |
+|---|---|---|---|
+| **A. Keep `Build-Site.ps1` as generator** | One `$modules` array controls everything; bulk copy changes are fast. | Requires PowerShell 7 and MPP Dev environment; less friendly to Studio edits. | Bulk refreshes like this one. |
+| **B. Retire `Build-Site.ps1` generator; edit files / Studio directly** | Matches current `.github/copilot-instructions.md` and `DEPLOYMENT.md`; copywriters can use Studio. | Must manually keep Home, nav, footer, and module pages in sync. | Ongoing copy tweaks after the refresh. |
+| **C. Hybrid: `Build-Site.ps1` for bulk regeneration, but Studio edits allowed if re-downloaded** | Flexible. | Risk of drift; requires disciplined conflict resolution. | Experienced owner only. |
+
+**Recommendation**: Option A for this refresh (it is the fastest way to bulk-update 14 modules + nav + footer), then evaluate Option B for maintenance. Update `SESSION_HANDOFF.md`, `.github/copilot-instructions.md`, and `docs/DEPLOYMENT.md` to match.
+
+---
+
+## 8.2 Module Count After HRRP Removal
+
+After removing HRRP, the Affordable Housing Nonprofit Suite has **14 live + roadmap modules**. The M365 offering is **not** a suite module — it is a separate managed service. Recommended hero wording:
+
+> "A frontier-first, AI-first platform for nonprofit housing agencies — 14 connected modules built on Microsoft Power Platform that deliver homebuyer education, down payment assistance, construction and property management, and the fundraising, grants, volunteer, and back-office work that surrounds them."
+
+If you prefer to keep a round number, drop the count entirely:
+
+> "A frontier-first, AI-first platform for nonprofit housing agencies — connected modules built on Microsoft Power Platform that deliver homebuyer education, down payment assistance, construction and property management, and the fundraising, grants, volunteer, and back-office work that surrounds them."
+
+---
+
+## 8.3 M365 Messaging Guardrails
+
+Before publishing `/m365/`, confirm with the M365 operations lead that the following are true or rephrase:
+
+- **Defender for Endpoint** — licensed and deployed as a managed service?
+- **Purview DLP** — configured with the listed sensitive information types?
+- **Conditional access** — blocks risky countries / unmanaged devices?
+- **Copilot Chat** — included in the service tier being sold?
+- **SPF/DKIM/DMARC** — part of standard onboarding?
+
+If any are aspirational, add qualifying language such as "included in our standard deployment" or "configured during onboarding" rather than implying they are active on day zero for every tenant.
+
+---
+
+## 8.4 Plan Manager Naming Conflict — Do Not Rename Yet
+
+The plan's original instruction to rename "Plan Manager" → "Project Management" conflicts with the existing `mppprojectmanagement` repo (`feat/pm-lite`), which appears to be a real project-management product. There are at least three possible scopes for the roadmap tile:
+
+1. **Architectural plan / drawing management** — what the current `plan-manager/` page describes (`mpp_ArchitecturalPlanPage`).
+2. **Strategic planning / outcomes / KPIs** — what `Build-Site.ps1` currently describes.
+3. **General project management** — what the `mppprojectmanagement` repo name suggests.
+
+**Decision needed**: Which product does the roadmap tile represent? Until the product owner decides, keep the slug `/plan-manager/` and the display label "Plan Manager". Do not rename to "Project Management" in nav or copy.
+
+---
+
+## 8.5 What Changed from Version 4.0
+
+- Added explicit source-of-truth prerequisite.
+- Renumbered implementation phases into sprints aligned with `docs/SPRINT-PLAN.md`.
+- Removed the "Rename Plan Manager → Project Management" instruction pending product-owner decision.
+- Added module-count guidance after HRRP removal.
+- Added M365 messaging guardrails.
+- Cross-referenced new `BACKLOG.md` and `SPRINT-PLAN.md`.
