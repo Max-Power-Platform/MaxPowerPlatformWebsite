@@ -232,6 +232,24 @@ function stop() {
   updateVis();
   var infoDiv = document.querySelector(".mpp-os-step-info");
   if (infoDiv) infoDiv.style.display = "none";
+  hideTooltip();
+}
+
+// ── TOOLTIP ───────────────────────────────────────
+var tooltip = null;
+function ensureTooltip() {
+  if (!tooltip) { tooltip = hEl("div", { className: "mpp-os-tooltip" }); document.body.appendChild(tooltip); }
+  return tooltip;
+}
+function showTooltip(title, desc, x, y) {
+  if (playing) return;
+  var tt = ensureTooltip();
+  tt.innerHTML = title + (desc ? "<span class=\"desc\">" + desc + "</span>" : "");
+  tt.className = "mpp-os-tooltip show";
+  tt.style.left = x + "px"; tt.style.top = y + "px";
+}
+function hideTooltip() {
+  if (tooltip) { tooltip.className = "mpp-os-tooltip"; }
 }
 
 // ── BUILD SVG ─────────────────────────────────────
@@ -269,8 +287,9 @@ function buildSvg() {
       fill: "url(#g-" + ring.key + ")", stroke: ring.color, "stroke-width": "1.5",
       "stroke-dasharray": ring.key === "constituents" ? "10,5" : "none", opacity: "0.85"
     });
-    p.addEventListener("mouseenter", function() { if (!playing) { activeRing = ring.key; updateVis(); } });
-    p.addEventListener("mouseleave", function() { if (!playing) { activeRing = null; updateVis(); } });
+    p.addEventListener("mouseenter", function(e) { if (!playing) { activeRing = ring.key; updateVis(); showTooltip(ring.label, ring.desc, e.clientX, e.clientY); } });
+    p.addEventListener("mousemove", function(e) { if (!playing && activeRing === ring.key) { showTooltip(ring.label, ring.desc, e.clientX, e.clientY); } });
+    p.addEventListener("mouseleave", function() { if (!playing) { activeRing = null; updateVis(); hideTooltip(); } });
     svg.appendChild(p);
   });
 
@@ -291,7 +310,7 @@ function buildSvg() {
 
   // Center
   var cg = svgEl("g", {});
-  cg.appendChild(svgEl("circle", { cx: CX, cy: CY, r: CR, fill: "#002B5C", opacity: "0.12" }));
+  cg.appendChild(svgEl("circle", { cx: CX, cy: CY, r: CR, fill: "#002B5C", opacity: "0.12", "pointer-events": "none" }));
   cg.appendChild(svgEl("circle", { cx: CX, cy: CY, r: CR, fill: "none", stroke: "#002B5C", "stroke-width": "2" }));
   cg.appendChild(svgT("text", { x: CX, y: CY - 6, "text-anchor": "middle", "font-size": "15", "font-weight": "700", fill: "#002B5C", "font-family": "inherit" }, "One Record"));
   cg.appendChild(svgT("text", { x: CX, y: CY + 14, "text-anchor": "middle", "font-size": "11", fill: "#5E6F7D", "font-family": "inherit" }, "Shared Dataverse"));
@@ -305,6 +324,9 @@ function buildSvg() {
     var g = svgEl("g", { "class": "mpp-os-node-g", "data-ring": n.ring });
     g.appendChild(svgEl("circle", { cx: pos.x, cy: pos.y, r: NR, fill: "#fff", stroke: R[n.ring].color, "stroke-width": "1.5", opacity: "0.9", "class": "mpp-os-node-circle" }));
     g.appendChild(svgT("text", { x: pos.x, y: pos.y + NR + 13, "text-anchor": "middle", "font-size": "10", "font-weight": "500", fill: "#555", "font-family": "inherit" }, n.label));
+    g.addEventListener("mouseenter", function(e) { if (!playing) { activeRing = n.ring; updateVis(); showTooltip(n.label, R[n.ring].label, e.clientX, e.clientY); } });
+    g.addEventListener("mousemove", function(e) { if (!playing && activeRing === n.ring) { showTooltip(n.label, R[n.ring].label, e.clientX, e.clientY); } });
+    g.addEventListener("mouseleave", function() { if (!playing) { activeRing = null; updateVis(); hideTooltip(); } });
     svg.appendChild(g);
   });
 

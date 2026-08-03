@@ -39,5 +39,12 @@
 .mpp-os-qb-note{margin-top:20px;text-align:center;background:#F7F8FA;border:1px dashed #D0D5DD;border-radius:8px;padding:18px 24px}
 .mpp-os-qb-note strong{font-weight:600;color:#888;font-size:15px}
 .mpp-os-qb-note p{color:#999;font-size:13px;margin:4px 0 0}
+.mpp-os-tooltip{position:fixed;z-index:9999;background:#002B5C;color:#fff;padding:10px 14px;border-radius:6px;font-size:13px;font-weight:600;max-width:260px;line-height:1.45;pointer-events:none;opacity:0;transform:translate(-50%,-110%);transition:opacity .15s;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+.mpp-os-tooltip.show{opacity:1}
+.mpp-os-tooltip .desc{display:block;font-weight:400;font-size:11px;opacity:.85;margin-top:3px}
+.mpp-os-node-g{cursor:pointer}
+.mpp-os-node-g:hover .mpp-os-node-circle{stroke-width:2.5;r:11;opacity:1}
+.mpp-os-ring-band{pointer-events:visiblePainted}
+.mpp-os-node-g{pointer-events:visiblePainted}
 .mpp-os-backlink{text-align:center;padding:0 20px 48px;background:#fff}
 .mpp-os-backlink a{color:#002B5C;text-decoration:none;font-weight:600;font-size:15px}
