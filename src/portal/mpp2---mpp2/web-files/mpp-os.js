@@ -114,6 +114,29 @@ var D = {
     backoffice: "AP \u00B7 Procurement \u00B7 Grants \u00B7 Fundraising \u00B7 Volunteers \u00B7 HR",
     programs: "HBE \u00B7 DPA \u00B7 Construction \u00B7 Property \u00B7 LMS",
     constituents: "Portals \u00B7 Website \u00B7 Email \u00B7 Copilot \u00B7 M365"
+  },
+  nodeDesc: {
+    "AP": "Invoice intake, approval workflows, vendor payments, and 1099s. AI reads the invoices so your staff doesn\u2019t have to.",
+    "Procurement": "Purchase orders, vendor management, contract compliance, and bid tracking. Every dollar tied to a grant or project.",
+    "Grants": "Grant tracking, reporting, drawdowns, and compliance calendars. Never miss a funder deadline.",
+    "Fundraising": "Donor CRM, campaigns, receipts, newsletters, and board dashboards. See every gift in real time.",
+    "Volunteers": "Recruitment, scheduling, hour tracking, and impact reporting. Turn volunteers into reliable capacity.",
+    "HR": "Employee records, onboarding, time-off, and compliance. Your team, in one place.",
+    "HBE": "Class scheduling, attendance, certificates, and HUD 9902 reporting. From registration to compliance automatically.",
+    "DPA": "Application intake, income verification, underwriting, closing, and lien recording. Every file, every rule, every dollar tracked.",
+    "Construction": "Project tracking, draws, RFIs, submittals, and vendor portals. Know exactly where every project dollar went.",
+    "Property Mgmt": "Tenant ledger, rent collection, maintenance work orders, and unit turns. One dashboard for every property.",
+    "LMS": "Online courses, certifications, and compliance training. Train staff and constituents on your own platform.",
+    "Prop Analyzer": "Jurisdiction lookup, appraisal data, and property research. Know the rules before you break ground.",
+    "Plan Manager": "Architectural plan and drawing version control. Every revision tracked, every submittal organized.",
+    "Portals": "Power Pages portals for homebuyers, tenants, donors, and vendors. One login, one experience.",
+    "Website": "Your public website \u2014 classes, donations, applications. Built on the same platform as your data.",
+    "Email": "Newsletters, announcements, and automated journeys. Sent from the CRM, not a separate tool.",
+    "Copilot Agents": "AI agents that answer questions, schedule classes, and check application status \u2014 24/7 on your website.",
+    "M365": "Business email, Teams, phone, security, and Copilot. One vendor, one bill.",
+    "Classes": "Class registrations, rosters, waitlists, and certificates. Constituents self-serve online.",
+    "Donations": "One-time and recurring gifts. Receipts, acknowledgments, and tax letters generated automatically.",
+    "Rent Payments": "Tenant self-service portal. Pay rent, submit maintenance requests, download statements."
   }
 };
 
@@ -324,8 +347,8 @@ function buildSvg() {
     var g = svgEl("g", { "class": "mpp-os-node-g", "data-ring": n.ring });
     g.appendChild(svgEl("circle", { cx: pos.x, cy: pos.y, r: NR, fill: "#fff", stroke: R[n.ring].color, "stroke-width": "1.5", opacity: "0.9", "class": "mpp-os-node-circle" }));
     g.appendChild(svgT("text", { x: pos.x, y: pos.y + NR + 13, "text-anchor": "middle", "font-size": "10", "font-weight": "500", fill: "#555", "font-family": "inherit" }, n.label));
-    g.addEventListener("mouseenter", function(e) { if (!playing) { activeRing = n.ring; updateVis(); showTooltip(n.label, R[n.ring].label, e.clientX, e.clientY); } });
-    g.addEventListener("mousemove", function(e) { if (!playing && activeRing === n.ring) { showTooltip(n.label, R[n.ring].label, e.clientX, e.clientY); } });
+    g.addEventListener("mouseenter", function(e) { if (!playing) { activeRing = n.ring; updateVis(); showTooltip(n.label, D.nodeDesc[n.label] || R[n.ring].label, e.clientX, e.clientY); } });
+    g.addEventListener("mousemove", function(e) { if (!playing && activeRing === n.ring) { showTooltip(n.label, D.nodeDesc[n.label] || R[n.ring].label, e.clientX, e.clientY); } });
     g.addEventListener("mouseleave", function() { if (!playing) { activeRing = null; updateVis(); hideTooltip(); } });
     svg.appendChild(g);
   });
