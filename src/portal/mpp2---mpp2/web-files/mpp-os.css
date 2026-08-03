@@ -1,2 +1,43 @@
-:root{--mpp-navy:#002b5c;--mpp-navy-light:#003d7a;--mpp-gray-100:#f8f9fa;--mpp-gray-200:#e9ecef;--mpp-gray-300:#dee2e6;--mpp-gray-500:#8c8c8c;--mpp-gray-700:#4a4a4a;--mpp-gray-900:#1a1a1a;--mpp-inner:#5b7c99;--mpp-middle:#b85c38;--mpp-outer:#8c8c8c}.mpp-os{color:var(--mpp-gray-900);background:#fff;padding:24px 0;font-family:Segoe UI,-apple-system,BlinkMacSystemFont,Arial,sans-serif}.mpp-os-layout{align-items:flex-start}.mpp-os-diagram{flex:2 520px;min-width:320px}.mpp-os-svg{width:100%;height:auto;display:block}.mpp-os-node{cursor:pointer;transition:transform .2s}.mpp-os-node:hover circle{stroke-width:4px;r:12}.mpp-os-node:focus{outline:none}.mpp-os-node:focus circle{stroke-width:4px;r:12}.mpp-os-node-active{r:12}.mpp-os-core{cursor:pointer}.mpp-os-core:hover circle,.mpp-os-core:focus circle{-webkit-filter:drop-shadow(0 0 6px rgba(0,43,92,.35));filter:drop-shadow(0 0 6px rgba(0,43,92,.35))}.mpp-os-pulse{animation:1.2s ease-out infinite mpp-os-pulse}@keyframes mpp-os-pulse{0%{stroke-opacity:.55;stroke-width:6px}to{stroke-opacity:0;stroke-width:18px}}.mpp-os-panel{flex:280px;min-width:280px;padding:16px 24px}.mpp-os-info{background:var(--mpp-gray-100);border-left:4px solid var(--mpp-navy);border-radius:4px;margin-bottom:24px;padding:20px}.mpp-os-info-title{margin-bottom:6px;font-weight:700;line-height:1.3;display:block}.mpp-os-info-subtitle{color:var(--mpp-gray-500);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;font-size:11px;font-weight:600;display:block}.mpp-os-info-body{color:var(--mpp-gray-700);line-height:1.6;display:block}.mpp-os-dropdown{width:100%;margin-bottom:16px}.mpp-os-controls{margin-bottom:24px}.mpp-os-legend{border-top:1px solid var(--mpp-gray-300);padding-top:16px}.mpp-os-legend-item{cursor:pointer;border-radius:4px;align-items:center;gap:10px;padding:8px 0;transition:background .15s;display:flex}.mpp-os-legend-item:hover{background:var(--mpp-gray-100)}.mpp-os-legend-item.active{background:var(--mpp-gray-200);font-weight:600}.mpp-os-legend-dot{border-radius:50%;flex-shrink:0;width:12px;height:12px}.mpp-os-legend-label{color:var(--mpp-gray-700);font-size:14px}@media (max-width:768px){.mpp-os-layout{flex-direction:column}.mpp-os-diagram{flex:auto}.mpp-os-panel{padding:16px 0}}
-/*$vite$:1*/
+/* Max Power Platform - Operating System diagram */
+#mpp-os-root{background:#FAFBFD;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+.mpp-os-header{max-width:900px;margin:0 auto;padding:48px 20px 0;text-align:center}
+.mpp-os-header h1{color:#002B5C;font-size:2rem;font-weight:700;line-height:1.15;margin:0 0 12px}
+.mpp-os-header p{color:#5E6F7D;font-size:1rem;max-width:680px;margin:0 auto}
+.mpp-os-svg-wrap{max-width:1000px;margin:0 auto;padding:32px 20px 16px}
+.mpp-os-svg-wrap svg{width:100%;height:auto}
+.mpp-os-controls{max-width:900px;margin:0 auto;padding:0 20px 24px;text-align:center}
+.mpp-os-controls select,.mpp-os-btn{font-family:inherit}
+.mpp-os-controls select{padding:8px 12px;border:1px solid #D0D5DD;border-radius:6px;font-size:14px;background:#fff;color:#333;min-width:200px;margin:0 5px 8px}
+.mpp-os-btn{padding:8px 20px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;margin:0 5px 8px;transition:background .15s}
+.mpp-os-btn-play{background:#002B5C;color:#fff;border-color:#002B5C}
+.mpp-os-btn-play:hover{background:#003D7A}
+.mpp-os-btn-play:disabled{background:#A0B4CC;cursor:not-allowed}
+.mpp-os-btn-pause{background:#fff;color:#333;border-color:#D0D5DD}
+.mpp-os-btn-pause:hover{background:#F3F4F6}
+.mpp-os-btn-pause:disabled{color:#CCC;cursor:not-allowed}
+.mpp-os-btn-reset{background:#fff;color:#888;border-color:#E5E7EB}
+.mpp-os-btn-reset:hover{background:#F3F4F6}
+.mpp-os-step-info{margin-top:14px;background:#fff;border:1px solid #E5E7EB;border-radius:8px;padding:14px 20px;display:inline-block;text-align:left;max-width:500px}
+.mpp-os-step-info h3{margin:0 0 4px;font-size:14px}
+.mpp-os-step-info p{margin:0;color:#666;font-size:13px}
+.mpp-os-cards{max-width:900px;margin:0 auto;padding:0 20px 32px;display:flex;gap:16px;flex-wrap:wrap}
+.mpp-os-card{flex:1 1 200px;background:#fff;border:1px solid #E5E7EB;border-radius:10px;padding:20px}
+.mpp-os-card h3{margin:0 0 6px;font-size:15px;font-weight:700}
+.mpp-os-card p{margin:0;color:#666;font-size:13px;line-height:1.5}
+.mpp-os-modules{background:#fff;border-top:1px solid #E5E7EB;padding:48px 20px 56px}
+.mpp-os-modules-inner{max-width:900px;margin:0 auto}
+.mpp-os-modules-inner h2{color:#002B5C;font-weight:700;text-align:center;margin-bottom:8px}
+.mpp-os-modules-inner>p{color:#5E6F7D;text-align:center;margin-bottom:32px}
+.mpp-os-module-group{margin-bottom:32px}
+.mpp-os-module-group h3{font-weight:700;margin-bottom:12px;font-size:16px}
+.mpp-os-module-grid{display:flex;flex-wrap:wrap;gap:12px}
+.mpp-os-module-tile{flex:1 1 260px;background:#FAFBFD;border:1px solid #E5E7EB;border-radius:8px;padding:18px;text-decoration:none;color:inherit;display:block;transition:box-shadow .2s}
+.mpp-os-module-tile:hover{box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+.mpp-os-module-tile .icon{font-size:20px;margin-bottom:8px}
+.mpp-os-module-tile h4{font-weight:700;color:#1A1A1A;margin:0 0 4px;font-size:14px}
+.mpp-os-module-tile p{color:#666;font-size:13px;line-height:1.45;margin:0}
+.mpp-os-qb-note{margin-top:20px;text-align:center;background:#F7F8FA;border:1px dashed #D0D5DD;border-radius:8px;padding:18px 24px}
+.mpp-os-qb-note strong{font-weight:600;color:#888;font-size:15px}
+.mpp-os-qb-note p{color:#999;font-size:13px;margin:4px 0 0}
+.mpp-os-backlink{text-align:center;padding:0 20px 48px;background:#fff}
+.mpp-os-backlink a{color:#002B5C;text-decoration:none;font-weight:600;font-size:15px}

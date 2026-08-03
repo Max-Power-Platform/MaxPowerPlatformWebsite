@@ -31,12 +31,15 @@ function Write-Utf8NoBom([string]$path, [string]$text) {
   [System.IO.File]::WriteAllText($full, $text, (New-Object System.Text.UTF8Encoding $false))
 }
 
-# --- Web-file helper: copy latest bundle and create YAML record if missing ---
+# --- Web-file helper: ensure YAML record exists (JS/CSS are hand-authored in web-files) ---
 function Update-WebFile([string]$name, [string]$mimeType, [string]$sourcePath) {
   $destFolder = 'src/portal/mpp2---mpp2/web-files'
   $destPath   = "$destFolder/$name"
   $ymlPath    = "$destPath.webfile.yml"
-  Copy-Item $sourcePath $destPath -Force | Out-Null
+  # Only copy if source is different from dest (no-op for hand-authored files already in web-files)
+  $srcAbs = [System.IO.Path]::GetFullPath($sourcePath)
+  $dstAbs = [System.IO.Path]::GetFullPath($destPath)
+  if ($srcAbs -ne $dstAbs) { Copy-Item $sourcePath $destPath -Force | Out-Null }
   if (-not (Test-Path $ymlPath)) {
     $webfileId    = [guid]::NewGuid().ToString()
     $annotationId = [guid]::NewGuid().ToString()
@@ -62,14 +65,11 @@ annotationid: $annotationId
   }
 }
 
-# --- Step 0: build the React + Fluent UI operating-system component ---
-Write-Host "Step 0: building React OS component..."
-Push-Location src/os-component
-npm run build | Out-Null
-Pop-Location
-Update-WebFile -name 'mpp-os.js' -mimeType 'text/javascript' -sourcePath 'src/os-component/dist/mpp-os.js'
-Update-WebFile -name 'mpp-os.css' -mimeType 'text/css' -sourcePath 'src/os-component/dist/os-component.css'
-Write-Host "Step 0 done: OS component bundle copied to web-files."
+# --- Step 0: ensure web-file YAML records exist for OS diagram (JS+CSS are hand-authored) ---
+Write-Host "Step 0: checking OS web-file records..."
+Update-WebFile -name 'mpp-os.js' -mimeType 'text/javascript' -sourcePath 'src/portal/mpp2---mpp2/web-files/mpp-os.js'
+Update-WebFile -name 'mpp-os.css' -mimeType 'text/css' -sourcePath 'src/portal/mpp2---mpp2/web-files/mpp-os.css'
+Write-Host "Step 0 done."
 
 # --- Managed Microsoft 365 service (separate from suite modules) ---
 $m365Service = @{
@@ -253,25 +253,8 @@ function Get-OperatingSystemHtml() {
 <div class="row sectionBlockLayout" style="display:flex;flex-wrap:wrap;margin:0;padding:0;">
   <div class="col-lg-12 columnBlockLayout" style="word-break:break-word;">
     <link rel="stylesheet" href="/mpp-os.css" />
-    <div id="mpp-os-root"></div>
-    <script>
-      (function(){
-        var el = document.getElementById('mpp-os-root');
-        if (!el) return;
-        el.innerHTML = '<p style="padding:24px;">Loading operating system diagram...</p>';
-        var s = document.createElement('script');
-        s.src = '/mpp-os.js';
-        s.onload = function(){
-          if (window.MPPOperatingSystem) {
-            window.MPPOperatingSystem.render('mpp-os-root');
-          }
-        };
-        s.onerror = function(){
-          el.innerHTML = '<p style="padding:24px;">Operating system diagram could not be loaded. Please refresh the page.</p>';
-        };
-        document.head.appendChild(s);
-      })();
-    </script>
+    <div id="mpp-os-root"><p style="padding:24px;color:#5E6F7D;text-align:center;font-family:sans-serif;">Loading operating system diagram...</p></div>
+    <script src="/mpp-os.js?v=2"></script>
   </div>
 </div>
 "@
