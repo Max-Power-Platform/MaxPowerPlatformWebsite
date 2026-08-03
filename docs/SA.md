@@ -196,7 +196,48 @@ graph TB
 
 ---
 
-## 7. Integration Points
+## 7. Interactive OS Diagram (Operating System Page)
+
+The `/operating-system/` page hosts a vanilla JavaScript concentric-ring diagram showing how every module fits together.
+
+### Architecture
+
+```
+Power Pages Page Content (Copy HTML)
+  └── <script src="/mpp-os.js?v=N"></script>    ← static web-file tag (allowed by CSP)
+      └── mpp-os.js (~27KB, IIFE)
+          ├── embedded data (rings, nodes, modules, transactions)
+          ├── SVG builder (donut paths, nodes, labels, glow filter)
+          ├── DOM builder (header, controls, cards, module tile grid)
+          ├── hover tooltips (ring name + description, module description)
+          └── transaction playback (setInterval, ring highlighting)
+```
+
+### Why vanilla JS (no React)
+
+- **CSP restriction**: Power Pages strips inline `<script>` tags from page content. Static `<script src>` tags are allowed but the portal script loader can interfere with framework bundles.
+- **No build step**: `mpp-os.js` and `mpp-os.css` are hand-authored and committed directly to `src/portal/mpp2---mpp2/web-files/`.
+- **Size**: 27KB vs 447KB (previous React+Fluent bundled version via Vite).
+- **No dependency conflicts**: The portal ships React 16.14; our vanilla code has zero dependencies.
+
+### Web-file pattern
+
+Interactive components are uploaded as **web-files** (Dataverse `adx_webfile` entities). The page content HTML references them via static `<script src>` and `<link rel="stylesheet">` tags. This bypasses the 1MB `powerpagecomponent.content` limit while allowing arbitrarily complex frontend code.
+
+The `Build-Site.ps1` script ensures YAML metadata files exist for each web-file (with stable GUIDs).
+
+### Data flow
+
+```
+Build-Site.ps1                pac pages upload            Portal Runtime
+──────────────                ────────────────            ──────────────
+Defines modules           →   Writes page content    →   Serves HTML with
+Generates page HTML           & web-files to              <script src> tag
+Writes web-files              Dataverse                   Browser loads mpp-os.js
+                                                          IIFE builds SVG + DOM
+```
+
+## 8. Integration Points
 
 | Integration | Details |
 |---|---|
@@ -207,13 +248,13 @@ graph TB
 
 ---
 
-## 8. Technical Constraints
+## 9. Technical Constraints
 
 | Constraint | Detail |
 |---|---|
-| **Power Pages limits** | SaaS-imposed: page count, bandwidth, storage |
+| **Power Pages limits** | SaaS-imposed: page count, bandwidth, storage; `powerpagecomponent.content` max 1MB |
+| **CSP inline scripts** | Power Pages strips inline `<script>` tags from page content — use web-files |
 | **Single language** | English only (no multi-language configured) |
-| **Managed environments** | UAT and Prod are managed-only |
-| **No custom code** | All customization via Liquid templates + Bootstrap CSS — no server-side plugins |
+| **Direct-to-Prod** | Current operating model targets live production — no Dev/UAT in active use |
 | **pac modelVersion 2** | Export format is v2 (`--modelVersion 2`) |
-| **Studio vs Code editing** | Must pick one per session to avoid drift |
+| **`.js` blocked by default** | Environment-level setting — must unblock in Power Platform Admin Center (Privacy + Security)
