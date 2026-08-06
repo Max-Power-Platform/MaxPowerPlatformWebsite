@@ -238,7 +238,7 @@ pwsh ./scripts/pages-download.ps1 -Env dev|uat|prod
 ```
 - Selects pac profile `nonprofit-website-{Env}`
 - Reads websiteId from `scripts/.site-ids.json`
-- Runs `pac pages download --webSiteId {id} --path src/website --modelVersion 2 --overwrite`
+- Runs `pages-download.ps1` with a required isolated comparison path outside `src/`; the snapshot is evidence only and cannot overwrite canonical source.
 
 ### `pages-upload.ps1`
 ```powershell

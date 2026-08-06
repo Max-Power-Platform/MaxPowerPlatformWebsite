@@ -24,6 +24,24 @@ $homeId         = 'e600cd70-cdf2-4226-99de-5295c93fa12a'
 $weblinkSetId   = '9b44a949-a98d-4969-afd9-8569b33f7829'
 $homeWebLinkId  = '120e8f8c-3b45-4197-bdfd-36118d26332f'
 $m365WebLinkId  = 'aa000005-0000-4000-8000-000000000005'
+$stableIdPath   = Join-Path $PSScriptRoot 'content-authority.ids.json'
+
+if (-not (Test-Path -LiteralPath $stableIdPath -PathType Leaf)) {
+  throw "Stable identifier manifest not found: $stableIdPath"
+}
+$stableIds = Get-Content -LiteralPath $stableIdPath -Raw | ConvertFrom-Json -AsHashtable
+$duplicateStableIds = @($stableIds.Values | Group-Object | Where-Object Count -gt 1)
+if ($duplicateStableIds.Count -gt 0) {
+  throw "Stable identifier manifest contains duplicate GUIDs: $($duplicateStableIds.Name -join ', ')"
+}
+function Get-StableId([string]$key) {
+  if (-not $stableIds.ContainsKey($key)) { throw "Missing stable identifier: $key" }
+  $parsed = [guid]::Empty
+  if (-not [guid]::TryParse([string]$stableIds[$key], [ref]$parsed)) {
+    throw "Invalid stable identifier for ${key}: $($stableIds[$key])"
+  }
+  return $parsed.ToString()
+}
 
 # --- Helper: write text as UTF-8 (no BOM), no trailing newline corruption ---
 function Write-Utf8NoBom([string]$path, [string]$text) {
@@ -41,8 +59,8 @@ function Update-WebFile([string]$name, [string]$mimeType, [string]$sourcePath) {
   $dstAbs = [System.IO.Path]::GetFullPath($destPath)
   if ($srcAbs -ne $dstAbs) { Copy-Item $sourcePath $destPath -Force | Out-Null }
   if (-not (Test-Path $ymlPath)) {
-    $webfileId    = [guid]::NewGuid().ToString()
-    $annotationId = [guid]::NewGuid().ToString()
+    $webfileId    = Get-StableId "webfile.$name.record"
+    $annotationId = Get-StableId "webfile.$name.annotation"
     $yml = @"
 adx_contentdisposition: 756150000
 adx_enabletracking: false
@@ -267,8 +285,8 @@ function Write-OperatingSystemPage() {
 
   $rootYmlPath = "$folder/$($osPage.pretty).webpage.yml"
   if (-not (Test-Path $rootYmlPath)) {
-    $rootGuid = [guid]::NewGuid().ToString()
-    $contentGuid = [guid]::NewGuid().ToString()
+    $rootGuid = Get-StableId "page.$($osPage.slug).root"
+    $contentGuid = Get-StableId "page.$($osPage.slug).content"
     $rootYml = @"
 adx_displayorder: 50
 adx_enablerating: false
@@ -358,8 +376,8 @@ function Write-M365Page() {
 
   $m365RootYmlPath = "$m365RootFolder/$($m365Service.pretty).webpage.yml"
   if (-not (Test-Path $m365RootYmlPath)) {
-    $m365RootGuid    = [guid]::NewGuid().ToString()
-    $m365ContentGuid = [guid]::NewGuid().ToString()
+    $m365RootGuid    = Get-StableId "page.$($m365Service.slug).root"
+    $m365ContentGuid = Get-StableId "page.$($m365Service.slug).content"
     $m365RootYml = @"
 adx_displayorder: 50
 adx_enablerating: false
@@ -462,8 +480,8 @@ Write-OperatingSystemPage
 $missingCount = 0
 foreach ($m in $modules) {
   if (-not $m.pageId) {
-    $rootGuid    = [guid]::NewGuid().ToString()
-    $contentGuid = [guid]::NewGuid().ToString()
+    $rootGuid    = Get-StableId "page.$($m.slug).root"
+    $contentGuid = Get-StableId "page.$($m.slug).content"
     $rootFolder    = "$rootPages/$($m.folder)"
     $contentFolder = "$rootFolder/content-pages"
     New-Item -ItemType Directory -Force -Path $contentFolder | Out-Null
@@ -838,7 +856,7 @@ foreach ($key in $parentOrder) {
 # Children: each module under its category parent
 $childOrders = @{ 'programs'=1; 'operations'=1; 'engagement'=1; 'coming-soon'=1 }
 foreach ($m in $modules) {
-  $wid = if ($existingByPage.ContainsKey($m.pageId)) { $existingByPage[$m.pageId] } else { [guid]::NewGuid().ToString() }
+  $wid = if ($existingByPage.ContainsKey($m.pageId)) { $existingByPage[$m.pageId] } else { Get-StableId "weblink.$($m.slug)" }
   $co = $childOrders[$m.category]
   Add-WL -name $m.navName -order $co -wid $wid -pageId $m.pageId -parentId $parentIds[$m.category]
   $childOrders[$m.category] = $co + 1

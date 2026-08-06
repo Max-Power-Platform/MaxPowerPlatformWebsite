@@ -40,7 +40,8 @@ owning ADO item before changing another workstream.
 - Use `MPP\MPPWebsite\PlatformAndALM` for repository governance/ALM work.
 - Sprints and capacity use Monday through Sunday.
 - Put `AB#<id>` in branch, commit, and PR metadata where supported.
-- Keep pull requests unmerged until the exact merge approval is recorded in Azure Boards.
+- Under `MPP-INDEPENDENT-ORCHESTRATOR-01`, the orchestrator may review and normally merge a green
+  PR to `dev` after checkpointing the exact Story/Bug envelope and evidence in Azure Boards.
 - Do not invent Story Points. Use `NeedsSizing` until sizing is approved.
 - User-visible claims require live evidence under the applicable FSBP standard; source or CI green
   alone is not a release claim.
@@ -66,11 +67,11 @@ Do not create or maintain `SESSION_HANDOFF.md`, `LEDGER.md`, `NEXT.md`, `RESUME.
 files, `.claude/session/`, or a host-specific equivalent as active state. The retained
 `SESSION_HANDOFF.md` is only a deprecation pointer.
 
-## Current corrected Batch 2 boundary
+## Current standing delivery boundary
 
-Allowed: repository governance files, CI-only governance validation, the isolated branch and PR,
-MPPWebsite team working-day configuration, AB#2042 checkpoints/links, and the MPPWebsite Wiki
-discoverability update.
-
-Excluded: deployment, Power Platform access, service connections, artifact publication, portal
-mutation, Production changes, and M365 Tenant Admin backlog changes.
+The MPP orchestrator may manage MPP ADO, Wiki, repositories, workers, branches, PRs, CI, pipelines,
+and ordinary non-destructive MPP Dev delivery after recording an exact Story/Bug envelope and
+passing tenant, identity, dependency, security, lock, artifact, rollback, and recovery gates.
+UAT and Production require Max's exact release approval before the first write unless an active
+bounded release envelope already exists. The always-escalated categories and absolute TBNHS
+isolation boundary recorded in AB#2042 remain in force.

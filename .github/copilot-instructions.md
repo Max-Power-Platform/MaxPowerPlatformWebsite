@@ -12,8 +12,9 @@ Repository-specific context:
 - Product: MPP public marketing website.
 - Source: Power Pages Enhanced Data Model under `src/portal/mpp2---mpp2/`.
 - Owning Area: `MPP\MPPWebsite`; governance/ALM Area: `MPP\MPPWebsite\PlatformAndALM`.
-- Branch flow: task branch → `dev`; stop before merge unless ADO records exact approval.
-- No Power Platform upload, portal mutation, deployment, environment write, service connection, or
-  artifact publication follows from a source or PR approval.
+- Branch flow: task branch → target `dev`; `main` is the release branch.
+- Under the active ADO autonomy contract, a reviewed green PR may be merged normally to `dev`.
+- No Power Platform upload, portal mutation, deployment, or environment write follows from source
+  or PR approval; it requires its own exact ADO execution/release envelope and gates.
 - Current status, blockers, approvals, evidence, rollback, and exact next direction come from
   Azure Boards, not `SESSION_HANDOFF.md`, chat, or a model-specific ledger.

@@ -129,7 +129,7 @@ Instrument the refreshed site so we can measure the epic's success and improve d
 Ensure the refresh ships safely through Dev → UAT → Prod with rollback capability and does not break existing leads or search indexing.
 
 **Acceptance criteria**:
-- [ ] A single source-of-truth decision is documented: `Build-Site.ps1` generator vs. Studio-first vs. code-first.
+- [x] AB2044 documents the controlled repository-first authority split and one-way Studio reconciliation.
 - [ ] All changes are committed and reviewed via PR before UAT deploy.
 - [ ] UAT smoke test passes: nav, tiles, `/m365/`, contact form, 3 module pages, mobile.
 - [ ] Prod deploy uses the existing `pages-deploy-prod.yml` environment gate.
@@ -156,7 +156,7 @@ Ensure the refresh ships safely through Dev → UAT → Prod with rollback capab
 
 | ID | Requirement | Priority | Notes |
 |---|---|---|---|
-| F2-REQ-01 | Remove the HRRP hashtable/entry from the site generation source and delete the `hrrp/` page folder from `src/portal/`. | P0 | See **open decision** on whether `Build-Site.ps1` or manual files are source of truth. |
+| F2-REQ-01 | Remove the HRRP hashtable/entry from the site generation source and delete the `hrrp/` page folder from `src/portal/`. | P0 | Implement through the owning AB2044 artifact class and accepted catalog decision. |
 | F2-REQ-02 | Update the Suite hero paragraph to remove the words "home repair" and update the module count (or remove the number). | P0 | Final count: 14 suite modules + M365 as a separate offering. |
 | F2-REQ-03 | Update Housing Program tiles per `WEBSITE-UPDATE-PLAN.md` §5: HBE, DPA, CMS, Property Management. | P0 | |
 | F2-REQ-04 | Update Back-Office tiles per plan: Accounts Payable, Procurement, Property Analyzer. | P0 | |
@@ -216,7 +216,7 @@ Ensure the refresh ships safely through Dev → UAT → Prod with rollback capab
 
 | ID | Requirement | Priority | Notes |
 |---|---|---|---|
-| F7-REQ-01 | Document the authoritative content editing workflow: resolve the `Build-Site.ps1` vs Studio-first vs code-first conflict. | P0 | See **critical risk** in risk register. |
+| F7-REQ-01 | Enforce the AB2044 controlled repository-first content workflow and one-way Studio reconciliation. | P0 | Accepted design; implementation owned by AB2074. |
 | F7-REQ-02 | Every change ships via PR to `dev`, then UAT workflow, then Prod workflow. | P0 | |
 | F7-REQ-03 | UAT smoke test script covers: Home hero, M365 section, nav dropdowns, `/m365/`, 3 suite module pages, contact form submit, mobile viewport. | P1 | Could be manual + Playwright. |
 | F7-REQ-04 | Prod rollback: identify the previous known-good commit and confirm `pages-deploy-prod.yml` can redeploy it. | P1 | |
@@ -229,7 +229,7 @@ Ensure the refresh ships safely through Dev → UAT → Prod with rollback capab
 
 | ID | Risk | Impact | Mitigation | Owner |
 |---|---|---|---|---|
-| R1 | `Build-Site.ps1` is described as the single source of truth in `SESSION_HANDOFF.md`, but newer docs describe Studio-first/code-first workflow. A developer editing files directly will be overwritten by `Build-Site.ps1`, or vice versa. | High — wasted work, broken site | Decide source of truth before Sprint 1; update `SESSION_HANDOFF.md` or retire `Build-Site.ps1` as generator. | max@maxpowerplatform.com |
+| R1 | Generated and hand-authored artifacts can be overwritten if their AB2044 ownership class is ignored. | High — wasted work, broken site | Enforce AB2074 offline prover, stable IDs, fail-closed obsolete generators, and isolated Studio comparison. | max@maxpowerplatform.com |
 | R2 | Plan Manager / Project Management / mppprojectmanagement repo naming collision causes buyer confusion and incorrect product expectations. | High — mis-sold capability | Resolve F2-REQ-06 explicitly; do not rename until product owner confirms scope. | max@maxpowerplatform.com |
 | R3 | M365 MSP content promises capabilities (Defender, Purview DLP, conditional access) not yet packaged as a sellable service. | High — legal/commercial risk | Legal/ops review of `/m365/` copy before Prod; add "available service tiers" footnote if needed. | max@maxpowerplatform.com |
 | R4 | HRRP page removal breaks external inbound links or bookmarks. | Medium — 404s, SEO | Leave `/hrrp/` unpublished with a redirect, or return a soft 404 with a link to CMS / Suite. | max@maxpowerplatform.com |
@@ -240,7 +240,7 @@ Ensure the refresh ships safely through Dev → UAT → Prod with rollback capab
 
 ## Open Decisions
 
-1. **Source of truth for site content**: `Build-Site.ps1` generator vs. Studio-first/code-first manual files. Must be resolved before Sprint 1.
+1. **Content authority — resolved by AB2044**: controlled repository-first hybrid with generator ownership declared by artifact class and Studio used only for isolated comparison.
 2. **Plan Manager naming**: Keep "Plan Manager" (architectural plans), rename to "Project Management" (general PM), or align with `mppprojectmanagement` repo scope.
 3. **M365 pricing / tiers**: Should `/m365/` mention starting price or remain tier-agnostic?
 4. **Analytics provider**: GA4, Microsoft Clarity, or both?

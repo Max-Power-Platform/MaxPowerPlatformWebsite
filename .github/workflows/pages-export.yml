@@ -1,17 +1,13 @@
-name: Pages — drift detection (nightly)
+name: Pages — isolated drift evidence
 
-# Nightly: pull live Dev site, open a PR if anything changed in Studio.
-# See MaxShared/docs/SUITE-SOLUTION-STRATEGY-2026-05-14.md §17.5
+# Manual evidence-only export. It cannot update canonical source or open a PR.
 
 on:
-  schedule:
-    - cron: '17 7 * * *'   # 07:17 UTC daily
   workflow_dispatch:
 
 permissions:
   id-token: write       # required for azure/login OIDC
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   drift:
@@ -37,15 +33,12 @@ jobs:
             --environment "$ENV_URL" \
             --azureCliAuth
 
-      - name: Download Dev site
-        run: pwsh ./scripts/pages-download.ps1 -Env dev
+      - name: Download isolated Dev comparison
+        run: pwsh ./scripts/pages-download.ps1 -Env dev -ComparisonPath .worktree/portal-comparison/dev
 
-      - name: Open PR if drift
-        uses: peter-evans/create-pull-request@v6
+      - name: Upload comparison evidence
+        uses: actions/upload-artifact@v4
         with:
-          branch: chore/studio-drift
-          title: 'chore(pages): Studio drift sync'
-          body: |
-            Nightly `pac pages download` against Dev produced changes.
-            Review and merge to keep `src/website/` in sync with Studio edits.
-          commit-message: 'chore(pages): nightly drift sync from Dev'
+          name: dev-portal-comparison
+          path: .worktree/portal-comparison/dev
+          retention-days: 7

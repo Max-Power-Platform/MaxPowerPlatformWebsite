@@ -10,7 +10,7 @@
 - `docs/BACKLOG.md` — Epic, features, requirements, risk register.
 - `docs/SPRINT-PLAN.md` — Sprint-by-sprint PR plan and definition of done.
 
-**Critical prerequisite**: Resolve the content source-of-truth conflict before Sprint 1. `SESSION_HANDOFF.md` calls `scripts/Build-Site.ps1` the single source of truth, while newer docs describe Studio-first / code-first file editing. This plan assumes a decision is recorded in `docs/EDIT-WORKFLOW.md` or a new `docs/CONTENT-SOURCE-OF-TRUTH.md` before any content is changed.
+**Resolved prerequisite**: AB2044 accepted a controlled repository-first hybrid. `Build-Site.ps1` owns its declared generated outputs, other files in the canonical portal tree are hand-authored Git source, and Studio exports are comparison evidence only. Azure Boards—not `SESSION_HANDOFF.md`—owns current state and recovery.
 
 ---
 
@@ -186,7 +186,7 @@ Programs ▾                    Operations ▾              Engagement ▾      
 ### Pre-Phase: Resolve workflow and naming (Sprint 0)
 | # | Task | Output |
 |---|---|---|
-| 0.1 | Decide content source of truth (`Build-Site.ps1` vs Studio-first vs code-first) | Updated `docs/EDIT-WORKFLOW.md` or `docs/CONTENT-SOURCE-OF-TRUTH.md` |
+| 0.1 | Apply accepted AB2044 content authority | `docs/EDIT-WORKFLOW.md` and offline authority prover |
 | 0.2 | Resolve Plan Manager naming conflict with product owner | Decision recorded in this doc §8.4 |
 | 0.3 | Verify M365 MSP service capabilities match `/m365/` copy | Ops sign-off in backlog risk register |
 | 0.4 | Verify AP QBO sync and Bulk Email journeys are production-live | Evidence attached to F4-REQ-05 / F4-REQ-11 |
@@ -231,7 +231,7 @@ Programs ▾                    Operations ▾              Engagement ▾      
 
 ## 8.1 Source-of-Truth Decision (Required Before Sprint 1)
 
-`SESSION_HANDOFF.md` describes `scripts/Build-Site.ps1` as the single source of truth: it generates the home page, all module pages, the nav, and the footer. Newer docs describe a Studio-first / code-first workflow where individual files are edited and uploaded with `pages-upload.ps1`.
+AB2044 resolves ownership by artifact class: `Build-Site.ps1` owns its declared generated outputs, while other files under the canonical portal tree are edited directly in Git. Studio snapshots are isolated comparison evidence and never overwrite source.
 
 **These cannot both be true.** Pick one and update the docs:
 
