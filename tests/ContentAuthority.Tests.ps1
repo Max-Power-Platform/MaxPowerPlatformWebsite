@@ -15,3 +15,4 @@ if (@($manifest.Values | Select-Object -Unique).Count -ne $manifest.Count) {
   throw 'Stable identifier manifest contains duplicate values.'
 }
 Write-Host 'PASS focused content-authority regression tests.'
+$global:LASTEXITCODE = 0
