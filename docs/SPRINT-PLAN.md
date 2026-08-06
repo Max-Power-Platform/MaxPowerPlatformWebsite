@@ -26,7 +26,7 @@
 **Goal**: Resolve workflow ambiguity and finalize naming before any code/content changes.
 
 ### Tasks
-- [ ] Decide: is `scripts/Build-Site.ps1` the single source of truth, or are individual files edited directly / via Studio?
+- [x] AB2044 accepted the controlled repository-first hybrid: `Build-Site.ps1` owns declared generated outputs, other canonical files are hand-authored Git source, and Studio is comparison evidence only.
 - [ ] Update `SESSION_HANDOFF.md` or `.github/copilot-instructions.md` to reflect the decision.
 - [ ] Resolve "Plan Manager" naming conflict with product owner.
 - [ ] Review `/m365/` copy with M365 MSP operations lead for accuracy.

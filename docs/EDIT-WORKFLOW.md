@@ -1,34 +1,47 @@
-# Edit workflow
+# MPPWebsite edit workflow
 
-Two valid editors. Pick one per session.
+Canonical governance: [FullStackBestPractices](https://github.com/Max-Power-Platform/FullStackBestPractices)
 
-## Path A — Studio first (recommended for content / copy)
+Current delivery authority: [MPP Azure Boards](https://dev.azure.com/maxpowerplatform/MPP)
 
-1. Edit in Power Pages Studio against Dev.
-2. From repo root: `pwsh ./scripts/pages-download.ps1 -Env dev`
-3. Review diff in Git, commit, push, PR.
-4. Merge → CI runs lint + size budget.
-5. Promote: `pwsh ./scripts/pages-upload.ps1 -Env uat`
-6. Sanity check UAT URL.
-7. Promote: `pwsh ./scripts/pages-upload.ps1 -Env prod -ConfirmProd`
+Content-authority decision: [AB2044](https://dev.azure.com/maxpowerplatform/MPP/_workitems/edit/2044)
 
-## Path B — Local first (recommended for Liquid / structural changes)
+## Authority
 
-1. Edit `.html` (Liquid) or `.json` (site settings) under `src/website/`.
-2. `pwsh ./scripts/pages-upload.ps1 -Env dev`
-3. Verify in Dev portal URL.
-4. Commit, PR, merge, promote (steps 4-7 from Path A).
+The reviewed Git tree at `src/portal/mpp2---mpp2/` is the only deployable portal source.
+`scripts/Build-Site.ps1` owns the artifacts declared in AB2044. Other files in the canonical tree
+are hand-authored Git source. Power Pages Studio is a diagnostic editor, never an independent authority.
 
-## Conflict resolution
+## Task branch workflow
 
-If you edited Studio AND local since the last download:
+1. Record an exact Story/Bug envelope and checkpoint in Azure Boards.
+2. Create one task branch from current `dev`; target `dev` in the pull request.
+3. Change generator input for generated artifacts, or the owning Git file for hand-authored ones.
+4. Run `./scripts/Test-ContentAuthority.ps1` and `./scripts/Test-Governance.ps1`.
+5. Include generated output with its owning generator change in the same PR.
+6. Merge a reviewed, green PR to `dev` under the active ADO autonomy contract.
 
-1. `pwsh ./scripts/pages-download.ps1 -Env dev` (writes Studio's version into a new branch `chore/studio-resync-{date}`)
-2. Resolve conflicts in Git.
-3. `pwsh ./scripts/pages-upload.ps1 -Env dev` once green.
+`main` is the release branch. Promotion from `dev` to `main`, and every UAT or Production write,
+requires its applicable exact release envelope and approval. A source merge is not a deployment.
 
-## Hard rules
+## Studio comparison
 
-- **Never** upload directly to Prod without going through UAT first.
-- **Never** commit secrets (tokens, env URLs containing GUIDs of secret resources).
-- The `Anonymous Users` web role must remain the only role granting access to home + module pages. CI will fail PRs that change that.
+When an approved envelope permits a Dev Studio inspection, download only to an isolated,
+non-deployable comparison directory:
+
+```powershell
+pwsh ./scripts/pages-download.ps1 -Env dev -ComparisonPath .worktree/portal-comparison/dev
+```
+
+Review the snapshot and selectively express differences in `Build-Site.ps1` or the owning
+hand-authored file. Never overwrite the canonical tree with a download. Never auto-merge drift.
+
+## Hard boundaries
+
+- Azure Boards is the only mutable recovery authority.
+- Never infer PAC, tenant, identity, environment, website ID, or permission from an interactive context.
+- MPP work uses only MPP identities and resources; never use TBNHS contexts.
+- UAT and Production require Max's exact release approval before the first write unless an active
+  bounded release envelope already exists.
+- Identity, permission, credential, paid-resource, tenant-wide, shared-service-connection,
+  destructive-data, and emergency-lock changes always require separate approval.

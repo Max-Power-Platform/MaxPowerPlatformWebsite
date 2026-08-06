@@ -13,6 +13,8 @@ permissions:
 
 jobs:
   guard:
+    # Fail closed until a separate release Story reconciles approvals, environments, and evidence.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - name: Confirm production
@@ -23,6 +25,7 @@ jobs:
           fi
 
   deploy:
+    if: ${{ false }}
     needs: guard
     runs-on: ubuntu-latest
     environment: prod    # GitHub environment with required reviewers

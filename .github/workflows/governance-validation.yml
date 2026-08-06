@@ -29,3 +29,11 @@ jobs:
       - name: Validate governance contract
         shell: pwsh
         run: ./scripts/Test-Governance.ps1
+
+      - name: Validate content authority and deterministic generation
+        shell: pwsh
+        run: ./scripts/Test-ContentAuthority.ps1
+
+      - name: Run focused content-authority regression tests
+        shell: pwsh
+        run: ./tests/ContentAuthority.Tests.ps1
