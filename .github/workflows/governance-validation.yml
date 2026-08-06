@@ -1,0 +1,31 @@
+name: Governance validation
+
+# Canonical shared governance: https://github.com/Max-Power-Platform/FullStackBestPractices
+# Owning ADO project: https://dev.azure.com/maxpowerplatform/MPP
+# Owning work item: https://dev.azure.com/maxpowerplatform/MPP/_workitems/edit/2042
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+  push:
+    branches:
+      - codex/mpp-website-governance-traceability-02
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  governance-validation:
+    name: Validate authority and recovery contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Validate governance contract
+        shell: pwsh
+        run: ./scripts/Test-Governance.ps1
